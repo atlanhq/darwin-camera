@@ -1,0 +1,22 @@
+PODS:
+  - darwin_camera (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - darwin_camera (from `.symlinks/plugins/darwin_camera/ios`)
+  - Flutter (from `.symlinks/flutter/ios`)
+
+EXTERNAL SOURCES:
+  darwin_camera:
+    :path: ".symlinks/plugins/darwin_camera/ios"
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+
+SPEC CHECKSUMS:
+  darwin_camera: fbdc05392614f393a0761272717f8cfb53c2c565
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+
+PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
+
+COCOAPODS: 1.7.0
