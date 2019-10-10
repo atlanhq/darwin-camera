@@ -11,15 +11,20 @@ dependencies:
   flutter:
     sdk: flutter
   camera: ^0.5.2+1
+  darwin_design_system:
+    git: git@github.com:atlanhq/darwin-ui.git
   firebase_ml_vision: ^0.9.2
   flutter_image_compress: ^0.6.3
   flutter_video_compress: ^0.3.7+8
   video_player: ^0.10.1+6
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+# dependency_overrides:
+#   darwin_design_system:
+#     git: git@github.com:atlanhq/darwin-ui.git
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -33,7 +38,6 @@ flutter:
   plugin:
     androidPackage: com.atlan.darwin_camera
     pluginClass: DarwinCameraPlugin
-
   # To add assets to your plugin package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
@@ -44,7 +48,6 @@ flutter:
   #
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # To add custom fonts to your plugin package, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

@@ -45,11 +45,31 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Darwin Camera Plugin'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
+        body: DarwinCameraTutorial(),
+      ),
+    );
+  }
+}
+
+class DarwinCameraTutorial extends StatelessWidget {
+  const DarwinCameraTutorial({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Column(
+        children: <Widget>[
+          RaisedButton(
+            child: Text("Open Darwin Camera"),
+            onPressed: () {
+              print("[+] OPEN CAMERA");
+            },
+            
+          )
+        ],
       ),
     );
   }

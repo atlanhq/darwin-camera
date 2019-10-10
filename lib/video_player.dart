@@ -2,9 +2,20 @@ import 'dart:async';
 import 'dart:io';
 
 // import 'package:collect/app/configuration/print.dart';
-// import 'package:collect/widgets/darwin_design_system.dart';
+import 'package:darwin_design_system/darwin_design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+
+class LoaderOverlay extends StatelessWidget {
+  bool isVisible;
+  
+  LoaderOverlay({Key key, bool visible, String helperText}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
 
 class DarwinVideoPlayer extends StatefulWidget {
   final String videoFilePath;
@@ -35,20 +46,23 @@ class _DarwinVideoPlayerState extends State<DarwinVideoPlayer> {
           setState(() {
             _isPlaying = isPlaying;
           });
-        } 
+        }
         Timer.run(() {
-            this.setState((){
-              _position = _controller.value.position;
-            });
+          this.setState(() {
+            _position = _controller.value.position;
           });
-          setState(() {
-            _duration = _controller.value.duration;
-          });
-          _duration?.compareTo(_position) == 0 || _duration?.compareTo(_position) == -1 ? this.setState((){
-            _isEnd = true;
-          }) : this.setState((){
-            _isEnd = false;
-          });
+        });
+        setState(() {
+          _duration = _controller.value.duration;
+        });
+        _duration?.compareTo(_position) == 0 ||
+                _duration?.compareTo(_position) == -1
+            ? this.setState(() {
+                _isEnd = true;
+              })
+            : this.setState(() {
+                _isEnd = false;
+              });
       })
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
@@ -67,10 +81,12 @@ class _DarwinVideoPlayerState extends State<DarwinVideoPlayer> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     bool _fadeFromBottom = widget.fadeFromBottom ?? false;
-    String currentDuration = '${_position?.inMinutes.toString().padLeft(2, '0')}:${_position?.inSeconds.toString().padLeft(2, '0')}';
-    String totalDuration = '${_duration?.inMinutes.toString().padLeft(2, '0')}:${_duration?.inSeconds.toString().padLeft(2, '0')}';
+    String currentDuration =
+        '${_position?.inMinutes.toString().padLeft(2, '0')}:${_position?.inSeconds.toString().padLeft(2, '0')}';
+    String totalDuration =
+        '${_duration?.inMinutes.toString().padLeft(2, '0')}:${_duration?.inSeconds.toString().padLeft(2, '0')}';
     print('_controller.value =======>>>>> ${_controller.value}');
-    if(_isEnd == true) {
+    if (_isEnd == true) {
       _controller.seekTo(Duration.zero);
     }
 
@@ -171,8 +187,16 @@ class _DarwinVideoPlayerState extends State<DarwinVideoPlayer> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text(currentDuration, style: secondaryPBold.copyWith(color: DarwinWhite),),
-                            Text(totalDuration, style: secondaryPBold.copyWith(color: DarwinWhite),),
+                            Text(
+                              currentDuration,
+                              style:
+                                  secondaryPBold.copyWith(color: DarwinWhite),
+                            ),
+                            Text(
+                              totalDuration,
+                              style:
+                                  secondaryPBold.copyWith(color: DarwinWhite),
+                            ),
                           ],
                         ),
                       ),

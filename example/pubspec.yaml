@@ -2,6 +2,8 @@ name: darwin_camera_example
 description: Demonstrates how to use the darwin_camera plugin.
 publish_to: 'none'
 
+version: 0.0.1+1
+
 environment:
   sdk: ">=2.1.0 <3.0.0"
 

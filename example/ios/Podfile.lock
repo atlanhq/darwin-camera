@@ -1,22 +1,34 @@
 PODS:
+  - camera (0.0.1):
+    - Flutter
   - darwin_camera (0.0.1):
+    - Flutter
+  - darwin_design_system (0.0.1):
     - Flutter
   - Flutter (1.0.0)
 
 DEPENDENCIES:
+  - camera (from `.symlinks/plugins/camera/ios`)
   - darwin_camera (from `.symlinks/plugins/darwin_camera/ios`)
+  - darwin_design_system (from `.symlinks/plugins/darwin_design_system/ios`)
   - Flutter (from `.symlinks/flutter/ios`)
 
 EXTERNAL SOURCES:
+  camera:
+    :path: ".symlinks/plugins/camera/ios"
   darwin_camera:
     :path: ".symlinks/plugins/darwin_camera/ios"
+  darwin_design_system:
+    :path: ".symlinks/plugins/darwin_design_system/ios"
   Flutter:
     :path: ".symlinks/flutter/ios"
 
 SPEC CHECKSUMS:
+  camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
   darwin_camera: fbdc05392614f393a0761272717f8cfb53c2c565
+  darwin_design_system: 0af89108964ce07feb2b63f4210d4fdc069c79ae
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
 
-PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
+PODFILE CHECKSUM: 8e0235daaa4cc0aebaf7b52ffeb887b5abc3d4d6
 
 COCOAPODS: 1.7.0

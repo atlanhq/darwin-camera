@@ -78,6 +78,15 @@ packages:
       relative: true
     source: path
     version: "0.0.1"
+  darwin_design_system:
+    dependency: transitive
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "16e7a59b6a885c34e7574c385c56f3208b6f0733"
+      url: "git@github.com:atlanhq/darwin-ui.git"
+    source: git
+    version: "0.0.1"
   firebase_ml_vision:
     dependency: transitive
     description:
