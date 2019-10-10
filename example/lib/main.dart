@@ -1,8 +1,10 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:darwin_camera/darwin_camera.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 void main() => runApp(MyApp());
 
@@ -56,6 +58,24 @@ class _MyAppState extends State<MyApp> {
 class DarwinCameraTutorial extends StatelessWidget {
   const DarwinCameraTutorial({Key key}) : super(key: key);
 
+  openCamera(BuildContext context) async {
+    PermissionHandler permissionHandler = PermissionHandler();
+    await checkForPermissionBasedOnPermissionGroup(permissionHandler, PermissionGroup.camera);
+
+    List<CameraDescription> cameraDescription = await availableCameras();
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DarwinCamera(
+          cameraDescription: cameraDescription,
+          filePath: "pathForNewFile",
+          resolution: ResolutionPreset.high,
+        ),
+      ),
+    );
+    print(result);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -66,11 +86,36 @@ class DarwinCameraTutorial extends StatelessWidget {
             child: Text("Open Darwin Camera"),
             onPressed: () {
               print("[+] OPEN CAMERA");
+              openCamera(context);
             },
-            
           )
         ],
       ),
     );
+  }
+}
+
+Future<bool> checkForPermissionBasedOnPermissionGroup(
+  PermissionHandler permissionHandler,
+  PermissionGroup permissionType,
+) async {
+  // PermissionGroup permissionType = PermissionGroup.camera;
+  PermissionStatus permission;
+  permission = await permissionHandler.checkPermissionStatus(permissionType);
+  if (permission == PermissionStatus.granted) {
+    // takeImageFromCameraAndSave();
+    return true;
+  }
+  var status = await permissionHandler.requestPermissions([permissionType]);
+  permission = status[permissionType];
+
+  if (permission == PermissionStatus.granted) {
+    // takeImageFromCameraAndSave();
+    return true;
+  } else {
+    ///
+    /// ASK USER TO GO TO SETTINGS TO GIVE PERMISSION;
+
+    return false;
   }
 }
