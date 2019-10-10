@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/darwin_camera.iml" filepath="$PROJECT_DIR$/darwin_camera.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/darwin_camera_android.iml" filepath="$PROJECT_DIR$/android/darwin_camera_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/example/android/darwin_camera_example_android.iml" filepath="$PROJECT_DIR$/example/android/darwin_camera_example_android.iml" />
+    </modules>
+  </component>
+</project>
