@@ -45,6 +45,9 @@ class _DarwinCameraState extends State<DarwinCamera>
   CameraDescription cameraDescription;
 
   ///
+  int cameraIndex;
+
+  ///
   File file;
 
   @override
@@ -57,8 +60,16 @@ class _DarwinCameraState extends State<DarwinCamera>
   ///
   initVariables() {
     file = File(widget.filePath);
-    cameraDescription = widget.cameraDescription.first;
+    selectCamera(0, reInitialize: false);
+  }
+
+  selectCamera(int index, {bool reInitialize}) {
+    cameraIndex = index;
+    cameraDescription = widget.cameraDescription[cameraIndex];
     cameraController = CameraController(cameraDescription, widget.resolution);
+    if (reInitialize) {
+      initCamera();
+    }
   }
 
   ///
@@ -78,10 +89,27 @@ class _DarwinCameraState extends State<DarwinCamera>
     });
   }
 
+  captureImage() {
+    print("[+] CAPTURE IMAGE");
+  }
+
+  toggleCamera() {
+    print("[+] TOGGLE CAMERA");
+    int nextCameraIndex;
+    if (cameraIndex == 0) {
+      nextCameraIndex = 1;
+    } else {
+      nextCameraIndex = 0;
+    }
+    setState(() {
+      selectCamera(nextCameraIndex, reInitialize: true);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isCameraInitialized = cameraController.value.isInitialized;
-
+    print("REBUILD CAMERA STREAM");
     if (isCameraInitialized) {
       return RenderCameraStream(
         cameraController: cameraController,
@@ -89,6 +117,15 @@ class _DarwinCameraState extends State<DarwinCamera>
         onBackPress: () {
           print("HERE");
         },
+        showFooter: true,
+        centerFooterButton: CaptureButton(
+          buttonPosition: captureButtonPosition,
+          buttonSize: captureButtonSize,
+          onTap: captureImage,
+        ),
+        rightFooterButton: ToggleCameraButton(
+          onTap: toggleCamera,
+        ),
       );
     } else {
       return LoaderOverlay(
