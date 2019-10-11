@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-import 'core.dart';
-export 'core.dart';
+import './core/core.dart';
+export './core/core.dart';
 
 class DarwinCamera extends StatefulWidget {
   ///
