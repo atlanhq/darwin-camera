@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'core.dart';
+export 'core.dart';
 
 class DarwinCamera extends StatefulWidget {
   ///
@@ -41,6 +42,9 @@ class DarwinCamera extends StatefulWidget {
 class _DarwinCameraState extends State<DarwinCamera>
     with TickerProviderStateMixin {
   ///
+  CameraState cameraState;
+
+  ///
   CameraController cameraController;
   CameraDescription cameraDescription;
 
@@ -59,6 +63,7 @@ class _DarwinCameraState extends State<DarwinCamera>
 
   ///
   initVariables() {
+    cameraState = CameraState.NOT_CAPTURING;
     file = File(widget.filePath);
     selectCamera(0, reInitialize: false);
   }
@@ -89,8 +94,31 @@ class _DarwinCameraState extends State<DarwinCamera>
     });
   }
 
-  captureImage() {
+  captureImage() async {
     print("[+] CAPTURE IMAGE");
+
+    setCameraState(CameraState.CAPTURING);
+
+    ///
+    try {
+      String savedFilePath;
+      savedFilePath = await DarwinCameraHelper.captureImage(
+        cameraController,
+        widget.filePath,
+      );
+      file = File(savedFilePath);
+      setCameraState(CameraState.CAPTURED);
+    } catch (e) {
+      print(e);
+      setCameraState(CameraState.NOT_CAPTURING);
+    }
+  }
+
+  setCameraState(CameraState newState) {
+    ///
+    setState(() {
+      cameraState = newState;
+    });
   }
 
   toggleCamera() {
@@ -111,26 +139,74 @@ class _DarwinCameraState extends State<DarwinCamera>
     bool isCameraInitialized = cameraController.value.isInitialized;
     print("REBUILD CAMERA STREAM");
     if (isCameraInitialized) {
-      return RenderCameraStream(
-        cameraController: cameraController,
-        showHeader: true,
-        onBackPress: () {
-          print("HERE");
-        },
-        showFooter: true,
-        centerFooterButton: CaptureButton(
-          buttonPosition: captureButtonPosition,
-          buttonSize: captureButtonSize,
-          onTap: captureImage,
-        ),
-        rightFooterButton: ToggleCameraButton(
-          onTap: toggleCamera,
-        ),
+      return Stack(
+        children: <Widget>[
+          getRenderCameraStreamWidget(),
+
+          ///
+          /// !important We show captured image on the top of camera preview stream.
+          /// Else it will throw file path not found error.
+          Align(
+            alignment: Alignment.topCenter,
+            child: Visibility(
+              visible: cameraState == CameraState.CAPTURED,
+              child: getCapturedImageWidget(),
+            ),
+          )
+        ],
       );
     } else {
       return LoaderOverlay(
         visible: true,
       );
     }
+  }
+
+  Widget getRenderCameraStreamWidget() {
+    return RenderCameraStream(
+      cameraController: cameraController,
+      showHeader: true,
+      onBackPress: () {
+        print("HERE");
+      },
+      showFooter: true,
+      leftFooterButton: CancelButton(
+        onTap: null,
+        opacity: 0,
+      ),
+      centerFooterButton: CaptureButton(
+        buttonPosition: captureButtonPosition,
+        buttonSize: captureButtonSize,
+        onTap: captureImage,
+      ),
+      rightFooterButton: ToggleCameraButton(
+        onTap: toggleCamera,
+      ),
+    );
+  }
+
+  Widget getCapturedImageWidget() {
+    // print(file.path);
+    // print(file.path);
+    // print(file.path);
+    // print(file.path);
+    return RenderCapturedImage(
+      file: file,
+      leftFooterButton: CancelButton(
+        opacity: 1,
+        onTap: () {
+          setCameraState(CameraState.NOT_CAPTURING);
+        },
+      ),
+      centerFooterButton: ConfirmButton(
+        onTap: () {
+          DarwinCameraHelper.returnResult(context, file: file);
+        },
+      ),
+      rightFooterButton: CancelButton(
+        onTap: null,
+        opacity: 0,
+      ),
+    );
   }
 }

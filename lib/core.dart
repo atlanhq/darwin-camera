@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:darwin_design_system/darwin_design_system.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 double captureButtonInnerBorderRadius = grid_spacer * 10;
 double captureButtonInnerShutterSize = grid_spacer * 8;
 double captureButtonPosition = grid_spacer;
 double captureButtonSize = grid_spacer * 10;
+
+enum CameraState { NOT_CAPTURING, CAPTURING, CAPTURED }
 
 class DarwinCameraHelper {
   ///
@@ -22,7 +27,69 @@ class DarwinCameraHelper {
       end: end,
     );
   }
+
+  ///
+  ///
+  /// Captures image from the selected Camera.
+  static Future<String> captureImage(
+    CameraController cameraController,
+    String filePath,
+  ) async {
+    imageCache.clear();
+    if (!cameraController.value.isInitialized) {
+      return null;
+    }
+
+    if (cameraController.value.isTakingPicture) {
+      return null;
+    }
+    File file = File(filePath);
+
+    try {
+      if (file.existsSync()) {
+        await file.delete();
+      }
+
+      await cameraController.takePicture(filePath);
+
+      file = File(filePath);
+      await compressImage(file);
+    } on CameraException catch (e, stacktrace) {
+      print(e);
+      print(stacktrace);
+      return null;
+    }
+    return filePath;
+  }
+
+  ///
+  ///
+  /// Compress Image saved in phone internal storage.
+  static compressImage(File file) async {
+    var result;
+    result = await FlutterImageCompress.compressWithFile(
+      file.absolute.path,
+      quality: 50,
+      autoCorrectionAngle: true,
+      keepExif: true,
+    );
+    await file.delete();
+    await file.writeAsBytes(result);
+    print('[+] COMPRESSED FILE SIZE: ${result.length}');
+  }
+
+
+
+  static returnResult(context, {File file}) {
+    var result = DarwinCameraResult(file: file);
+    Navigator.pop(context, result);
+  }
+
+
+
 }
+
+
 
 class LoaderOverlay extends StatelessWidget {
   bool isVisible;
@@ -39,6 +106,7 @@ class RenderCameraStream extends StatelessWidget {
   final CameraController cameraController;
   final bool showHeader;
   final bool showFooter;
+  final Widget leftFooterButton;
   final Widget centerFooterButton;
   final Widget rightFooterButton;
   final Function onBackPress;
@@ -53,6 +121,7 @@ class RenderCameraStream extends StatelessWidget {
 
     ///
     @required this.showFooter,
+    this.leftFooterButton,
     this.centerFooterButton,
     this.rightFooterButton,
   }) : super(key: key);
@@ -145,6 +214,7 @@ class RenderCameraStream extends StatelessWidget {
     return Visibility(
       visible: showFooter,
       child: CameraFooter(
+        leftButton: leftFooterButton,
         centerButton: centerFooterButton,
         rightButton: rightFooterButton,
       ),
@@ -152,12 +222,53 @@ class RenderCameraStream extends StatelessWidget {
   }
 }
 
+class RenderCapturedImage extends StatelessWidget {
+  final File file;
+
+  ///
+  final Widget leftFooterButton;
+  final Widget centerFooterButton;
+  final Widget rightFooterButton;
+
+  ///
+  const RenderCapturedImage({
+    Key key,
+    @required this.file,
+    @required this.leftFooterButton,
+    @required this.centerFooterButton,
+    @required this.rightFooterButton,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: <Widget>[
+        Positioned.fill(
+          child: Image.file(
+            file,
+            fit: BoxFit.fitHeight,
+            width: double.infinity,
+            alignment: Alignment.center,
+          ),
+        ),
+        CameraFooter(
+          leftButton: leftFooterButton,
+          centerButton: centerFooterButton,
+          rightButton: rightFooterButton,
+        ),
+      ],
+    );
+  }
+}
+
 class CameraFooter extends StatelessWidget {
+  final Widget leftButton;
   final Widget centerButton;
   final Widget rightButton;
 
   CameraFooter({
     Key key,
+    @required this.leftButton,
     @required this.centerButton,
     @required this.rightButton,
   }) : super(key: key);
@@ -177,20 +288,41 @@ class CameraFooter extends StatelessWidget {
         child: SafeArea(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Container(
-                padding: padding_a_s,
-                child: Opacity(
-                  opacity: 0,
-                  child: Icon(
-                    DarwinFont.cancel,
-                    color: DarwinDanger,
-                  ),
-                ),
-              ),
-              centerButton,
-              rightButton
-            ],
+            children: <Widget>[leftButton, centerButton, rightButton],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CancelButton extends StatelessWidget {
+  ///
+  final Function onTap;
+  final double opacity;
+
+  ///
+  CancelButton({
+    Key key,
+    @required this.onTap,
+    @required this.opacity,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (onTap != null) {
+          onTap();
+        }
+      },
+      child: Container(
+        padding: padding_a_s,
+        child: Opacity(
+          opacity: opacity,
+          child: Icon(
+            DarwinFont.cancel,
+            color: DarwinDanger,
           ),
         ),
       ),
@@ -255,6 +387,43 @@ class CaptureButton extends StatelessWidget {
   }
 }
 
+class ConfirmButton extends StatelessWidget {
+  final Function onTap;
+  const ConfirmButton({
+    Key key,
+    @required this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        width: grid_spacer * 14,
+        height: grid_spacer * 14,
+        alignment: Alignment.center,
+        child: Container(
+          width: grid_spacer * 10,
+          height: grid_spacer * 10,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(grid_spacer * 12),
+            color: DarwinSuccess,
+          ),
+          child: Icon(
+            DarwinFont.check,
+            color: DarwinWhite,
+            size: grid_spacer * 4,
+          ),
+        ),
+      ),
+      onTap: () {
+        if (onTap != null) {
+          onTap();
+        }
+      },
+    );
+  }
+}
+
 ///
 ///
 /// This widget will send event to toggle camera.
@@ -275,4 +444,25 @@ class ToggleCameraButton extends StatelessWidget {
       onTap: onTap,
     );
   }
+}
+
+class DarwinCameraResult {
+  ///
+  final File file;
+
+  /// Scanned text in returned in case of Barcode Scanner.
+  final String scannedText;
+
+  bool get isFileAvailable {
+    if (file == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  DarwinCameraResult({
+    this.file,
+    this.scannedText,
+  });
 }

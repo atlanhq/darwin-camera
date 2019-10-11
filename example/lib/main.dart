@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:darwin_camera/darwin_camera.dart';
+import 'package:darwin_design_system/darwin_design_system.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 void main() => runApp(MyApp());
@@ -55,25 +59,52 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class DarwinCameraTutorial extends StatelessWidget {
+class DarwinCameraTutorial extends StatefulWidget {
   const DarwinCameraTutorial({Key key}) : super(key: key);
+
+  @override
+  _DarwinCameraTutorialState createState() => _DarwinCameraTutorialState();
+}
+
+class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
+  File imageFile;
+  bool isImageCaptured;
+
+  @override
+  void initState() {
+    super.initState();
+
+    isImageCaptured = false;
+  }
 
   openCamera(BuildContext context) async {
     PermissionHandler permissionHandler = PermissionHandler();
-    await checkForPermissionBasedOnPermissionGroup(permissionHandler, PermissionGroup.camera);
+    await checkForPermissionBasedOnPermissionGroup(
+        permissionHandler, PermissionGroup.camera);
+    String filePath = await FileUtils.getDefaultFilePath();
+    filePath =
+        '$filePath/${DateTime.now().millisecondsSinceEpoch.toString()}.png';
+
 
     List<CameraDescription> cameraDescription = await availableCameras();
-    var result = await Navigator.push(
+    DarwinCameraResult result = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => DarwinCamera(
           cameraDescription: cameraDescription,
-          filePath: "pathForNewFile",
+          filePath: filePath,
           resolution: ResolutionPreset.high,
         ),
       ),
     );
-    print(result);
+    if (result != null && result.isFileAvailable) {
+      setState(() {
+        isImageCaptured = true;
+        imageFile = result.file;
+      });
+      print(result.file);
+      print(result.file.path);
+    }
   }
 
   @override
@@ -81,19 +112,48 @@ class DarwinCameraTutorial extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          RaisedButton(
-            child: Text("Open Darwin Camera"),
-            onPressed: () {
-              print("[+] OPEN CAMERA");
-              openCamera(context);
-            },
-          )
+          SizedBox(
+            height: 40.0,
+          ),
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: QuestionButton(
+              title: "Open Darwin Camera",
+              onTap: () {
+                print("[+] OPEN CAMERA");
+                openCamera(context);
+              },
+            ),
+          ),
+          if (isImageCaptured)
+            Image.file(
+              imageFile,
+              fit: BoxFit.fitHeight,
+              width: double.infinity,
+              alignment: Alignment.center,
+              height: 300,
+            ),
         ],
       ),
     );
   }
 }
+
+// class ImagePreview extends StatelessWidget {
+//   File file;
+//   ImagePreview({Key key, this.file}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     if (file == null) {
+//       return Container();
+//     } else {
+
+//     }
+//   }
+// }
 
 Future<bool> checkForPermissionBasedOnPermissionGroup(
   PermissionHandler permissionHandler,
@@ -117,5 +177,98 @@ Future<bool> checkForPermissionBasedOnPermissionGroup(
     /// ASK USER TO GO TO SETTINGS TO GIVE PERMISSION;
 
     return false;
+  }
+}
+
+class FileUtils {
+  static Future<String> getDefaultFilePath() async {
+    try {
+      Directory appDocDir = await getApplicationDocumentsDirectory();
+      String mediaDirectory = appDocDir.path + "/media";
+      Directory(mediaDirectory).create(recursive: true);
+      return mediaDirectory;
+    } catch (error, stacktrace) {
+      print('could not create folder for media assets');
+      print(error);
+      print(stacktrace);
+      return null;
+    }
+  }
+}
+
+class QuestionButton extends StatelessWidget {
+  final VoidCallback onTap;
+  final EdgeInsets padding;
+  final Icon icon;
+  final IconData iconData;
+  final String title;
+
+  QuestionButton({
+    @required this.onTap,
+    this.padding,
+    this.icon,
+    this.iconData,
+    this.title,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    double width = double.infinity; // ResponsiveUtils.getDeviceWidth(context);
+    bool isDeviceSmall = true; //ResponsiveUtils.isDeviceXtraSmall(width);
+    bool isDeviceTablet = false; //ResponsiveUtils.isDeviceTablet(width);
+    EdgeInsets _padding = (padding) ?? (isDeviceSmall)
+        ? (EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width / 56))
+        : (isDeviceTablet)
+            ? (EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 9))
+            : (EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width / 16.2));
+    IconData _iconData = (iconData) ?? DarwinFont.emoji_happy;
+    Icon _icon = (icon) ??
+        Icon(
+          _iconData,
+          color: DarwinPrimary,
+          size: (isDeviceTablet) ? grid_spacer * 7 : grid_spacer * 7,
+        );
+    String _title = (title) ?? 'Tap for\naction';
+
+    return Container(
+      decoration: BoxDecoration(
+        color: DarwinPrimaryLight,
+        borderRadius: BorderRadius.circular(grid_spacer * 2),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Center(
+          child: Container(
+            margin: margin_a_s,
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: _padding,
+                ),
+                // _icon,
+                SizedBox(
+                  width:
+                      (isDeviceTablet) ? grid_spacer * 2.5 : grid_spacer * 1.5,
+                ),
+                Text(
+                  _title.toUpperCase(),
+                  style: (isDeviceTablet)
+                      ? Theme.of(context).textTheme.display3.copyWith(
+                            color: DarwinPrimary,
+                            height: 1.2,
+                          )
+                      : Theme.of(context).textTheme.display1.copyWith(
+                          color: DarwinPrimary, height: 1.2, fontSize: 24),
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
