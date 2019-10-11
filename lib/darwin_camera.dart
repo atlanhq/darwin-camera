@@ -27,6 +27,7 @@ class DarwinCamera extends StatefulWidget {
   final String filePath;
 
   final bool enableCompression;
+  final bool disableNativeBackFunctionality;
 
   DarwinCamera({
     Key key,
@@ -34,6 +35,7 @@ class DarwinCamera extends StatefulWidget {
     @required this.filePath,
     this.resolution = ResolutionPreset.high,
     this.enableCompression = false,
+    this.disableNativeBackFunctionality = false,
   }) : super(key: key);
 
   _DarwinCameraState createState() => _DarwinCameraState();
@@ -166,6 +168,7 @@ class _DarwinCameraState extends State<DarwinCamera>
     return RenderCameraStream(
       cameraController: cameraController,
       showHeader: true,
+      disableNativeBackFunctionality: widget.disableNativeBackFunctionality,
       onBackPress: () {
         print("HERE");
       },

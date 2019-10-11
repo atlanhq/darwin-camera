@@ -78,18 +78,11 @@ class DarwinCameraHelper {
     print('[+] COMPRESSED FILE SIZE: ${result.length}');
   }
 
-
-
   static returnResult(context, {File file}) {
     var result = DarwinCameraResult(file: file);
     Navigator.pop(context, result);
   }
-
-
-
 }
-
-
 
 class LoaderOverlay extends StatelessWidget {
   bool isVisible;
@@ -106,6 +99,7 @@ class RenderCameraStream extends StatelessWidget {
   final CameraController cameraController;
   final bool showHeader;
   final bool showFooter;
+  final bool disableNativeBackFunctionality;
   final Widget leftFooterButton;
   final Widget centerFooterButton;
   final Widget rightFooterButton;
@@ -117,6 +111,7 @@ class RenderCameraStream extends StatelessWidget {
     ///
     @required this.cameraController,
     @required this.showHeader,
+    this.disableNativeBackFunctionality = false,
     this.onBackPress,
 
     ///
@@ -129,9 +124,11 @@ class RenderCameraStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      // onWillPop: () async {
-      //   return true;
-      // },
+      onWillPop: this.disableNativeBackFunctionality
+          ? () async {
+              return false;
+            }
+          : null,
       child: Stack(
         children: <Widget>[
           getCameraStream(context),
