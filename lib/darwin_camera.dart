@@ -63,6 +63,12 @@ class _DarwinCameraState extends State<DarwinCamera>
     initCamera();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    cameraController.dispose();
+  }
+
   ///
   initVariables() {
     cameraState = CameraState.NOT_CAPTURING;
