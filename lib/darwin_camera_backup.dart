@@ -317,12 +317,13 @@ class _DarwinCameraState extends State<DarwinCamera>
                       _onBackPressed();
                     },
                     child: Container(
-                        padding: padding_right_s + padding_bottom_s,
-                        child: Icon(
-                          DarwinFont.cancel,
-                          color: DarwinWhite,
-                          size: grid_spacer * 2.5,
-                        )),
+                      padding: padding_right_s + padding_bottom_s,
+                      child: Icon(
+                        DarwinFont.cancel,
+                        color: DarwinWhite,
+                        size: grid_spacer * 2.5,
+                      ),
+                    ),
                   ),
                 ],
               ),

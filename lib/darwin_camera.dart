@@ -83,7 +83,13 @@ class _DarwinCameraState extends State<DarwinCamera>
     bool isCameraInitialized = cameraController.value.isInitialized;
 
     if (isCameraInitialized) {
-      return CameraPreview(cameraController);
+      return RenderCameraStream(
+        cameraController: cameraController,
+        showHeader: true,
+        onBackPress: () {
+          print("HERE");
+        },
+      );
     } else {
       return LoaderOverlay(
         visible: true,
