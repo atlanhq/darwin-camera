@@ -42,3 +42,16 @@ DarwinCamera({
   shouldCompress: true
 })
 ```
+
+### Directory structure
+
+```
+.
+├── core.dart
+├── darwin_camera.dart
+├── darwin_camera_backup.dart
+├── utils
+│   ├── detector_painter.dart
+│   └── scanner_utils.dart
+└── video_player.dart
+```
