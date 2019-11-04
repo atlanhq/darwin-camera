@@ -7,7 +7,7 @@
 
 ## Getting Started
 
-In your flutter project add the dependency:
+In your flutter project add `darwin_camera` as a dependency:
 
 ```yml
 dependencies:
