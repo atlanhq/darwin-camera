@@ -120,6 +120,8 @@ class _DarwinCameraState extends State<DarwinCamera>
       savedFilePath = await DarwinCameraHelper.captureImage(
         cameraController,
         widget.filePath,
+        enableCompression: widget.enableCompression
+
       );
       file = File(savedFilePath);
       setCameraState(CameraState.CAPTURED);

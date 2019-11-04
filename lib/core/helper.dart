@@ -4,8 +4,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
-
-
 class DarwinCameraHelper {
   ///
   static LinearGradient backgroundGradient(
@@ -27,8 +25,9 @@ class DarwinCameraHelper {
   /// Captures image from the selected Camera.
   static Future<String> captureImage(
     CameraController cameraController,
-    String filePath,
-  ) async {
+    String filePath, {
+    bool enableCompression = true,
+  }) async {
     imageCache.clear();
     if (!cameraController.value.isInitialized) {
       return null;
@@ -47,7 +46,9 @@ class DarwinCameraHelper {
       await cameraController.takePicture(filePath);
 
       file = File(filePath);
-      await compressImage(file);
+      if (enableCompression == true) {
+        await compressImage(file);
+      }
     } on CameraException catch (e, stacktrace) {
       print(e);
       print(stacktrace);
@@ -77,8 +78,6 @@ class DarwinCameraHelper {
     Navigator.pop(context, result);
   }
 }
-
-
 
 class DarwinCameraResult {
   ///
