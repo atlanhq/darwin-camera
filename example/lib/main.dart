@@ -91,6 +91,7 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
     filePath = '$filePath/$uuid.png';
 
     List<CameraDescription> cameraDescription = await availableCameras();
+
     ////
     DarwinCameraResult result = await Navigator.push(
       context,

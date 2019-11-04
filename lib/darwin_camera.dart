@@ -11,30 +11,30 @@ export 'package:darwin_design_system/darwin_design_system.dart';
 class DarwinCamera extends StatefulWidget {
   //
   /// Flag to enable/disable image compression.
-  final bool enableCompression; 
-  
+  final bool enableCompression;
+
   ///
   /// Disables native back functionality provided by iOS using the swipe gestures.
   final bool disableNativeBackFunctionality;
-  
-  /// 
+
+  ///
   /// List of cameras availale in the device.
-  /// 
+  ///
   /// How to get the list available cameras?
   /// `List<CameraDescription> cameraDescription = await availableCameras();`
-  final List<CameraDescription> cameraDescription; 
-  
+  final List<CameraDescription> cameraDescription;
+
   ///
   /// Path where the image file will be saved.
   final String filePath;
-  
+
   ///
   /// Resolution of the image captured
   /// Possible values:
   /// 1. ResolutionPreset.high
   /// 2. ResolutionPreset.medium
   /// 3. ResolutionPreset.low
-  final ResolutionPreset resolution; 
+  final ResolutionPreset resolution;
 
   DarwinCamera({
     Key key,
@@ -118,11 +118,8 @@ class _DarwinCameraState extends State<DarwinCamera>
     try {
       String savedFilePath;
       savedFilePath = await DarwinCameraHelper.captureImage(
-        cameraController,
-        widget.filePath,
-        enableCompression: widget.enableCompression
-
-      );
+          cameraController, widget.filePath,
+          enableCompression: widget.enableCompression);
       file = File(savedFilePath);
       setCameraState(CameraState.CAPTURED);
     } catch (e) {
@@ -154,11 +151,13 @@ class _DarwinCameraState extends State<DarwinCamera>
   @override
   Widget build(BuildContext context) {
     bool isCameraInitialized = cameraController.value.isInitialized;
+    bool areMultipleCamerasAvailable = widget.cameraDescription.length > 1;
     // print("REBUILD CAMERA STREAM");
     if (isCameraInitialized) {
       return Stack(
         children: <Widget>[
-          getRenderCameraStreamWidget(),
+          getRenderCameraStreamWidget(
+              showCameraToggle: areMultipleCamerasAvailable),
 
           ///
           /// !important We show captured image on the top of camera preview stream.
@@ -179,7 +178,9 @@ class _DarwinCameraState extends State<DarwinCamera>
     }
   }
 
-  Widget getRenderCameraStreamWidget() {
+  Widget getRenderCameraStreamWidget({
+    bool showCameraToggle,
+  }) {
     return RenderCameraStream(
       cameraController: cameraController,
       showHeader: true,
@@ -199,6 +200,7 @@ class _DarwinCameraState extends State<DarwinCamera>
       ),
       rightFooterButton: ToggleCameraButton(
         onTap: toggleCamera,
+        opacity: showCameraToggle ? 1.0 : 0.0,
       ),
     );
   }

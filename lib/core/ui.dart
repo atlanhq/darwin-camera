@@ -390,17 +390,25 @@ class ConfirmButton extends StatelessWidget {
 /// This widget will send event to toggle camera.
 class ToggleCameraButton extends StatelessWidget {
   final Function onTap;
-  const ToggleCameraButton({Key key, @required this.onTap}) : super(key: key);
+  final double opacity;
+  const ToggleCameraButton({
+    Key key,
+    @required this.onTap,
+    this.opacity = 1.0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
         padding: padding_a_s,
-        child: Icon(
-          Icons.refresh,
-          color: DarwinWhite,
-          size: grid_spacer * 4,
+        child: Opacity(
+          opacity: opacity,
+          child: Icon(
+            Icons.refresh,
+            color: DarwinWhite,
+            size: grid_spacer * 4,
+          ),
         ),
       ),
       onTap: onTap,
