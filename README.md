@@ -23,8 +23,23 @@ For help getting started with Flutter, view the online
 ```dart
 import 'package:darwin_camera/darwin_camera.dart';
 
+ DarwinCameraResult result = await Navigator.push(
+   context,
+   MaterialPageRoute(
+     builder: (context) => DarwinCamera(
+       cameraDescription: cameraDescription,
+       filePath: filePath,
+       resolution: ResolutionPreset.high,
+     ),
+   ),
+ );
 
-
+if (result != null && result.isFileAvailable) {
+   /// File object returned by Camera.
+   print(result.file);
+   /// Path where the file is faced. 
+   print(result.file.path);
+ }
 
 ```
 
