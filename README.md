@@ -1,10 +1,8 @@
 # Darwin Camera
 
-Darwin Camera plugin for [Flutter](https://flutter.io).
-Supports both iOS and Android.
-
-- Quickly capture image using the using this plugin without going deep into the implementation of official Camera plugin provides by the flutter developers. 
-- Image compression using [flutter_image_compress](https://pub.dev/packages/flutter_image_compress)
+|                                                                                                                                                                                                                                                                                                                                                  |                                                                                                                                                  |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Darwin Camera plugin for [Flutter](https://flutter.io). <br>Supports both iOS and Android.<br>  <br>• Quickly capture image using the using this plugin without going deep into the implementation of the official Camera plugin provides by the flutter developers.</br>   • Image compression using [flutter_image_compress](https://pub.dev/packages/flutter_image_compress) | ![IMG_1C904124CB91-2_iphonexspacegrey_portrait](https://user-images.githubusercontent.com/9272830/68128635-18c30500-ff3e-11e9-8a32-c32496d5856f.jpg) |
 
 ## Getting Started
 
@@ -66,7 +64,7 @@ DarwinCamera({
   List<CameraDescription> cameraDescription, 
   
   /// @Required
-  
+
   /// Path where the image file will be saved.
   String filePath, 
   
