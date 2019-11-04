@@ -58,18 +58,19 @@ DarwinCamera({
   /// Disables native back functionality provided by iOS using the swipe gestures.
   bool disableNativeBackFunctionality = false,
   
-  /// 
+  /// @Required
   /// List of cameras availale in the device.
   /// 
   /// How to get the list available cameras?
   /// `List<CameraDescription> cameraDescription = await availableCameras();`
   List<CameraDescription> cameraDescription, 
   
-  ///
+  /// @Required
+  
   /// Path where the image file will be saved.
   String filePath, 
   
-  ///
+  /// 
   /// Resolution of the image captured
   /// Possible values:
   /// 1. ResolutionPreset.high
