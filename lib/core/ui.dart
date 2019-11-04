@@ -12,7 +12,6 @@ double captureButtonSize = grid_spacer * 10;
 
 enum CameraState { NOT_CAPTURING, CAPTURING, CAPTURED }
 
-
 class RenderCameraStream extends StatelessWidget {
   final CameraController cameraController;
   final bool showHeader;
@@ -102,20 +101,14 @@ class RenderCameraStream extends StatelessWidget {
           child: SafeArea(
             child: Row(
               children: <Widget>[
-                GestureDetector(
+                CancelButton(
+                  opacity: 1,
+                  padding: padding_a_xs,
                   onTap: () {
                     if (onBackPress != null) {
                       onBackPress();
                     }
                   },
-                  child: Container(
-                    padding: padding_right_s + padding_bottom_s,
-                    child: Icon(
-                      DarwinFont.cancel,
-                      color: DarwinWhite,
-                      size: grid_spacer * 2.5,
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -215,12 +208,14 @@ class CancelButton extends StatelessWidget {
   ///
   final Function onTap;
   final double opacity;
+  final EdgeInsets padding;
 
   ///
   CancelButton({
     Key key,
     @required this.onTap,
     @required this.opacity,
+    this.padding = padding_a_s,
   }) : super(key: key);
 
   @override
@@ -232,18 +227,35 @@ class CancelButton extends StatelessWidget {
         }
       },
       child: Container(
-        padding: padding_a_s,
+        padding: padding,
         child: Opacity(
           opacity: opacity,
           child: Icon(
-            DarwinFont.cancel,
+            Icons.cancel,
             color: DarwinDanger,
+            size: grid_spacer * 4,
           ),
         ),
       ),
     );
   }
 }
+//=============================================================
+//
+//   ####    ###    #####   ######  ##   ##  #####    #####
+//  ##      ## ##   ##  ##    ##    ##   ##  ##  ##   ##
+//  ##     ##   ##  #####     ##    ##   ##  #####    #####
+//  ##     #######  ##        ##    ##   ##  ##  ##   ##
+//   ####  ##   ##  ##        ##     #####   ##   ##  #####
+//
+//
+//  #####   ##   ##  ######  ######   #####   ##     ##
+//  ##  ##  ##   ##    ##      ##    ##   ##  ####   ##
+//  #####   ##   ##    ##      ##    ##   ##  ##  ## ##
+//  ##  ##  ##   ##    ##      ##    ##   ##  ##    ###
+//  #####    #####     ##      ##     #####   ##     ##
+//
+//=========================================================
 
 class CaptureButton extends StatelessWidget {
   final double buttonSize;
@@ -302,6 +314,23 @@ class CaptureButton extends StatelessWidget {
   }
 }
 
+//===============================================================
+//
+//   ####   #####   ##     ##  #####  ##  #####    ###    ###
+//  ##     ##   ##  ####   ##  ##     ##  ##  ##   ## #  # ##
+//  ##     ##   ##  ##  ## ##  #####  ##  #####    ##  ##  ##
+//  ##     ##   ##  ##    ###  ##     ##  ##  ##   ##      ##
+//   ####   #####   ##     ##  ##     ##  ##   ##  ##      ##
+//
+//
+//  #####   ##   ##  ######  ######   #####   ##     ##
+//  ##  ##  ##   ##    ##      ##    ##   ##  ####   ##
+//  #####   ##   ##    ##      ##    ##   ##  ##  ## ##
+//  ##  ##  ##   ##    ##      ##    ##   ##  ##    ###
+//  #####    #####     ##      ##     #####   ##     ##
+//
+//=========================================================
+
 class ConfirmButton extends StatelessWidget {
   final Function onTap;
   const ConfirmButton({
@@ -324,7 +353,7 @@ class ConfirmButton extends StatelessWidget {
             color: DarwinSuccess,
           ),
           child: Icon(
-            DarwinFont.check,
+            Icons.check,
             color: DarwinWhite,
             size: grid_spacer * 4,
           ),
@@ -339,6 +368,23 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
+//=================================================================================================================
+//
+//  ######   #####    ####     ####    ##      #####         ####    ###    ###    ###  #####  #####      ###
+//    ##    ##   ##  ##       ##       ##      ##           ##      ## ##   ## #  # ##  ##     ##  ##    ## ##
+//    ##    ##   ##  ##  ###  ##  ###  ##      #####        ##     ##   ##  ##  ##  ##  #####  #####    ##   ##
+//    ##    ##   ##  ##   ##  ##   ##  ##      ##           ##     #######  ##      ##  ##     ##  ##   #######
+//    ##     #####    ####     ####    ######  #####         ####  ##   ##  ##      ##  #####  ##   ##  ##   ##
+//
+//
+//  #####   ##   ##  ######  ######   #####   ##     ##
+//  ##  ##  ##   ##    ##      ##    ##   ##  ####   ##
+//  #####   ##   ##    ##      ##    ##   ##  ##  ## ##
+//  ##  ##  ##   ##    ##      ##    ##   ##  ##    ###
+//  #####    #####     ##      ##     #####   ##     ##
+//
+//=========================================================
+
 ///
 ///
 /// This widget will send event to toggle camera.
@@ -352,16 +398,15 @@ class ToggleCameraButton extends StatelessWidget {
       child: Container(
         padding: padding_a_s,
         child: Icon(
-          DarwinFont.refresh,
+          Icons.refresh,
           color: DarwinWhite,
+          size: grid_spacer * 4,
         ),
       ),
       onTap: onTap,
     );
   }
 }
-
-
 
 class LoaderOverlay extends StatelessWidget {
   bool isVisible;

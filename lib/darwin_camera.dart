@@ -176,7 +176,7 @@ class _DarwinCameraState extends State<DarwinCamera>
       showHeader: true,
       disableNativeBackFunctionality: widget.disableNativeBackFunctionality,
       onBackPress: () {
-        print("HERE");
+        Navigator.pop(context);
       },
       showFooter: true,
       leftFooterButton: CancelButton(

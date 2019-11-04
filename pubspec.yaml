@@ -2,7 +2,7 @@ name: darwin_camera
 description: A new flutter plugin project.
 version: 0.0.1
 author:
-homepage:
+homepage: "https://atlan.com/"
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -13,10 +13,7 @@ dependencies:
   camera: ^0.5.2+1
   darwin_design_system:
     git: git@github.com:atlanhq/darwin-ui.git
-  firebase_ml_vision: ^0.9.2
   flutter_image_compress: ^0.6.3
-  flutter_video_compress: ^0.3.7+8
-  video_player: ^0.10.1+6
 
 dev_dependencies:
   flutter_test:
