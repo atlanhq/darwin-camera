@@ -5,29 +5,36 @@ import 'package:flutter/material.dart';
 
 import './core/core.dart';
 export './core/core.dart';
+export 'package:camera/camera.dart';
+export 'package:darwin_design_system/darwin_design_system.dart';
 
 class DarwinCamera extends StatefulWidget {
+  //
+  /// Flag to enable/disable image compression.
+  final bool enableCompression; 
+  
   ///
-  /// List of cameras available
-  final List<CameraDescription> cameraDescription;
-
-  ///
-  /// Resolution of the image
-  ///
-  /// Possible values
-  ///
-  /// - `ResolutionPreset.high`
-  /// - `ResolutionPreset.medium`
-  /// - `ResolutionPreset.low`
-  ///
-  final ResolutionPreset resolution;
-
-  ///
-  /// path where file wil be stored.
-  final String filePath;
-
-  final bool enableCompression;
+  /// Disables native back functionality provided by iOS using the swipe gestures.
   final bool disableNativeBackFunctionality;
+  
+  /// 
+  /// List of cameras availale in the device.
+  /// 
+  /// How to get the list available cameras?
+  /// `List<CameraDescription> cameraDescription = await availableCameras();`
+  final List<CameraDescription> cameraDescription; 
+  
+  ///
+  /// Path where the image file will be saved.
+  final String filePath;
+  
+  ///
+  /// Resolution of the image captured
+  /// Possible values:
+  /// 1. ResolutionPreset.high
+  /// 2. ResolutionPreset.medium
+  /// 3. ResolutionPreset.low
+  final ResolutionPreset resolution; 
 
   DarwinCamera({
     Key key,
@@ -103,7 +110,7 @@ class _DarwinCameraState extends State<DarwinCamera>
   }
 
   captureImage() async {
-    print("[+] CAPTURE IMAGE");
+    // print("[+] CAPTURE IMAGE");
 
     setCameraState(CameraState.CAPTURING);
 
@@ -130,7 +137,7 @@ class _DarwinCameraState extends State<DarwinCamera>
   }
 
   toggleCamera() {
-    print("[+] TOGGLE CAMERA");
+    // print("[+] TOGGLE CAMERA");
     int nextCameraIndex;
     if (cameraIndex == 0) {
       nextCameraIndex = 1;
@@ -145,7 +152,7 @@ class _DarwinCameraState extends State<DarwinCamera>
   @override
   Widget build(BuildContext context) {
     bool isCameraInitialized = cameraController.value.isInitialized;
-    print("REBUILD CAMERA STREAM");
+    // print("REBUILD CAMERA STREAM");
     if (isCameraInitialized) {
       return Stack(
         children: <Widget>[

@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:darwin_camera/darwin_camera.dart';
-import 'package:darwin_design_system/darwin_design_system.dart';
+
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -18,7 +16,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  String _platformVersion = '12';
 
   @override
   void initState() {
@@ -79,14 +77,21 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
 
   openCamera(BuildContext context) async {
     PermissionHandler permissionHandler = PermissionHandler();
-    await checkForPermissionBasedOnPermissionGroup(
-        permissionHandler, PermissionGroup.camera);
-    String filePath = await FileUtils.getDefaultFilePath();
-    filePath =
-        '$filePath/${DateTime.now().millisecondsSinceEpoch.toString()}.png';
 
+    await checkForPermissionBasedOnPermissionGroup(
+      permissionHandler,
+      PermissionGroup.camera,
+    );
+
+    ///
+    String filePath = await FileUtils.getDefaultFilePath();
+    String uuid = DateTime.now().millisecondsSinceEpoch.toString();
+
+    ///
+    filePath = '$filePath/$uuid.png';
 
     List<CameraDescription> cameraDescription = await availableCameras();
+    ////
     DarwinCameraResult result = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -97,6 +102,9 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
         ),
       ),
     );
+
+    ///
+    ///
     if (result != null && result.isFileAvailable) {
       setState(() {
         isImageCaptured = true;
@@ -105,6 +113,8 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
       print(result.file);
       print(result.file.path);
     }
+
+    ///
   }
 
   @override
@@ -141,25 +151,11 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
   }
 }
 
-// class ImagePreview extends StatelessWidget {
-//   File file;
-//   ImagePreview({Key key, this.file}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     if (file == null) {
-//       return Container();
-//     } else {
-
-//     }
-//   }
-// }
-
 Future<bool> checkForPermissionBasedOnPermissionGroup(
   PermissionHandler permissionHandler,
   PermissionGroup permissionType,
 ) async {
-  // PermissionGroup permissionType = PermissionGroup.camera;
+  ///
   PermissionStatus permission;
   permission = await permissionHandler.checkPermissionStatus(permissionType);
   if (permission == PermissionStatus.granted) {
