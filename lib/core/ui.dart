@@ -33,9 +33,9 @@ class RenderCameraStream extends StatelessWidget {
 
     ///
     @required this.showFooter,
-    this.leftFooterButton,
-    this.centerFooterButton,
-    this.rightFooterButton,
+    @required this.leftFooterButton,
+    @required this.centerFooterButton,
+    @required this.rightFooterButton,
   }) : super(key: key);
 
   @override
