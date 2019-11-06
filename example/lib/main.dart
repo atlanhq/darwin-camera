@@ -16,33 +16,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = '12';
+
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion = "12";
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // try {
-    //   platformVersion = await DarwinCamera.platformVersion;
-    // } on PlatformException {
-    //   platformVersion = 'Failed to get platform version.';
-    // }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -130,9 +110,10 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
           ),
           Padding(
             padding: EdgeInsets.all(16),
-            child: QuestionButton(
+            child: ButtonWithImage(
               key: ValueKey("OpenDarwinCameraButton"),
               title: "Open Darwin Camera",
+              iconData: Icons.camera_alt,
               onTap: () {
                 print("[+] OPEN CAMERA");
                 openCamera(context);
@@ -140,14 +121,24 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
             ),
           ),
           if (isImageCaptured)
-            Image.file(
-              imageFile,
-              key: ValueKey("CapturedImagePreview"),
-              fit: BoxFit.fitHeight,
-              width: double.infinity,
-              alignment: Alignment.center,
-              height: 300,
-            ),
+            Container(
+              margin: padding_a_xs,
+              padding: padding_a_xxs,
+              decoration: BoxDecoration(
+                color: DarwinPrimaryLight,
+                borderRadius: BorderRadius.circular(grid_spacer * 2),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(grid_spacer),
+                child: Image.file(
+                  imageFile,
+                  key: ValueKey("CapturedImagePreview"),
+                  fit: BoxFit.fitHeight,
+                  alignment: Alignment.center,
+                  height: 300,
+                ),
+              ),
+            )
         ],
       ),
     );
@@ -195,7 +186,7 @@ class FileUtils {
   }
 }
 
-class QuestionButton extends StatelessWidget {
+class ButtonWithImage extends StatelessWidget {
   final Key key;
   final VoidCallback onTap;
   final EdgeInsets padding;
@@ -203,7 +194,7 @@ class QuestionButton extends StatelessWidget {
   final IconData iconData;
   final String title;
 
-  QuestionButton({
+  ButtonWithImage({
     this.key,
     @required this.onTap,
     this.padding,
@@ -214,26 +205,6 @@ class QuestionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = double.infinity; // ResponsiveUtils.getDeviceWidth(context);
-    bool isDeviceSmall = true; //ResponsiveUtils.isDeviceXtraSmall(width);
-    bool isDeviceTablet = false; //ResponsiveUtils.isDeviceTablet(width);
-    EdgeInsets _padding = (padding) ?? (isDeviceSmall)
-        ? (EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width / 56))
-        : (isDeviceTablet)
-            ? (EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 9))
-            : (EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width / 16.2));
-    IconData _iconData = (iconData) ?? DarwinFont.emoji_happy;
-    Icon _icon = (icon) ??
-        Icon(
-          _iconData,
-          color: DarwinPrimary,
-          size: (isDeviceTablet) ? grid_spacer * 7 : grid_spacer * 7,
-        );
-    String _title = (title) ?? 'Tap for\naction';
-
     return Container(
       decoration: BoxDecoration(
         color: DarwinPrimaryLight,
@@ -245,24 +216,23 @@ class QuestionButton extends StatelessWidget {
           child: Container(
             margin: margin_a_s,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Padding(
-                  padding: _padding,
+                Icon(
+                  iconData,
+                  color: DarwinPrimary,
+                  size: grid_spacer * 5,
                 ),
-                // _icon,
                 SizedBox(
-                  width:
-                      (isDeviceTablet) ? grid_spacer * 2.5 : grid_spacer * 1.5,
+                  width: grid_spacer * 1.5,
                 ),
                 Text(
-                  _title.toUpperCase(),
-                  style: (isDeviceTablet)
-                      ? Theme.of(context).textTheme.display3.copyWith(
-                            color: DarwinPrimary,
-                            height: 1.2,
-                          )
-                      : Theme.of(context).textTheme.display1.copyWith(
-                          color: DarwinPrimary, height: 1.2, fontSize: 24),
+                  title.toUpperCase(),
+                  style: Theme.of(context).textTheme.display1.copyWith(
+                        color: DarwinPrimary,
+                        height: 1.2,
+                        fontSize: 20,
+                      ),
                   textAlign: TextAlign.left,
                 ),
               ],
