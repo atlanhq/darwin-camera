@@ -11,11 +11,13 @@ void main() {
     final cameraStream = find.byValueKey("CameraStream");
     final headerCancelButton = find.byValueKey("HeaderCancelButton");
     final captureButton = find.byValueKey("CaptureButton");
+    final confirmImageButton = find.byValueKey("ConfirmImageButton");
     final cameraTogglebutton = find.byValueKey("CameraToggleButton");
 
     final capturedImageWidget = find.byValueKey("RenderCapturedImageWidget");
     final capturedImageCancelButton =
         find.byValueKey("CapturedImageCancelButton");
+    final capturedImagePreview = find.byValueKey("CapturedImagePreview");
 
     ///
     FlutterDriver driver;
@@ -50,10 +52,12 @@ void main() {
 
     testCaptureImage() async {
       /// Capture Image;
+      print("TAP BEFORE CAPTURE");
       await driver.tap(captureButton);
-
+      print("TAP AFTER CAPTURE");
       /// Wait for new widget.
       await driver.waitFor(capturedImageWidget);
+      print("CAPTURE IMAGE RENDERED");
       await driver.waitFor(capturedImageCancelButton);
     }
 
@@ -66,10 +70,31 @@ void main() {
       await driver.waitForAbsent(capturedImageWidget);
     }
 
+    testSaveImage() async {
+      ///
+      /// Save Image
+      await driver.tap(confirmImageButton);
+
+      await driver.waitForAbsent(capturedImageWidget);
+      await driver.waitForAbsent(cameraStream);
+
+      await driver.waitFor(capturedImagePreview);
+    }
+
     ///
     ///
     ///
     ///
+    /// =================================================================================
+    ///
+    ///   ######  #####   ####  ######         ####  ######    ###    #####    ######
+    ///     ##    ##     ##       ##          ##       ##     ## ##   ##  ##     ##
+    ///     ##    #####   ###     ##           ###     ##    ##   ##  #####      ##
+    ///     ##    ##        ##    ##             ##    ##    #######  ##  ##     ##
+    ///     ##    #####  ####     ##          ####     ##    ##   ##  ##   ##    ##
+    ///
+    /// =================================================================================
+
     test('Camera Stream is rendered and Cancel button is working', () async {
       await testOpenCameraStream();
 
@@ -118,6 +143,29 @@ void main() {
       ///
       ///
       await testCloseCameraStream();
+    });
+
+    test("Image is captured by primary camera and saved", () async {
+      await testOpenCameraStream();
+
+      await testCaptureImage();
+
+      await testSaveImage();
+    });
+
+    ///
+    ///
+    ///
+    test("Image is captured by secondary camera and saved", () async {
+      await testOpenCameraStream();
+
+      await driver.tap(cameraTogglebutton);
+
+      await driver.waitFor(captureButton);  
+      ///
+      await testCaptureImage();
+
+      await testSaveImage();
     });
   });
 }

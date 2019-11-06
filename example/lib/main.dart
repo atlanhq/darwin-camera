@@ -142,6 +142,7 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
           if (isImageCaptured)
             Image.file(
               imageFile,
+              key: ValueKey("CapturedImagePreview"),
               fit: BoxFit.fitHeight,
               width: double.infinity,
               alignment: Alignment.center,

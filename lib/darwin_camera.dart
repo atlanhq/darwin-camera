@@ -225,6 +225,7 @@ class _DarwinCameraState extends State<DarwinCamera>
         },
       ),
       centerFooterButton: ConfirmButton(
+        key: ValueKey("ConfirmImageButton"),
         onTap: () {
           DarwinCameraHelper.returnResult(context, file: file);
         },
