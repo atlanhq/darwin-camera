@@ -11,8 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
   camera: ^0.5.2+1
-  darwin_design_system:
-    git: git@github.com:atlanhq/darwin-ui.git
   flutter_image_compress: ^0.6.3
 
 dev_dependencies:

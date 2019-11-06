@@ -64,15 +64,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
-  darwin_design_system:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "16e7a59b6a885c34e7574c385c56f3208b6f0733"
-      url: "git@github.com:atlanhq/darwin-ui.git"
-    source: git
-    version: "0.0.1"
   file:
     dependency: transitive
     description:

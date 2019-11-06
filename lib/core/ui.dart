@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:darwin_camera/core/core.dart';
 import 'package:darwin_camera/core/helper.dart';
-import 'package:darwin_design_system/darwin_design_system.dart';
 import 'package:flutter/material.dart';
 
 double captureButtonInnerBorderRadius = grid_spacer * 10;

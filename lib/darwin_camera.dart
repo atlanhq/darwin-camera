@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import './core/core.dart';
 export './core/core.dart';
 export 'package:camera/camera.dart';
-export 'package:darwin_design_system/darwin_design_system.dart';
 
 class DarwinCamera extends StatefulWidget {
   //
