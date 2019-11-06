@@ -153,11 +153,15 @@ class RenderCapturedImage extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Positioned.fill(
-          child: Image.file(
-            file,
-            fit: BoxFit.fitHeight,
-            width: double.infinity,
-            alignment: Alignment.center,
+          child: Container(
+            color: DarwinBlack,
+            height: double.infinity,
+            child: Image.file(
+              file,
+              fit: BoxFit.contain,
+              width: double.infinity,
+              alignment: Alignment.center,
+            ),
           ),
         ),
         CameraFooter(
