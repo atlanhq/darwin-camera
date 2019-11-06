@@ -14,9 +14,11 @@ jobs:
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
+
+
       - uses: subosito/flutter-action@v1
         with:
           flutter-version: '1.7.8+hotfix.4'
           channel: 'beta'
-      - run: cd example
-      - run: flutter drive --target=test_driver/app.dart
+        
+      - run: flutter drive --target=example/test_driver/app.dart
