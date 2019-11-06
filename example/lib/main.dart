@@ -131,6 +131,7 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
           Padding(
             padding: EdgeInsets.all(16),
             child: QuestionButton(
+              key: ValueKey("OpenDarwinCameraButton"),
               title: "Open Darwin Camera",
               onTap: () {
                 print("[+] OPEN CAMERA");
@@ -194,6 +195,7 @@ class FileUtils {
 }
 
 class QuestionButton extends StatelessWidget {
+  final Key key;
   final VoidCallback onTap;
   final EdgeInsets padding;
   final Icon icon;
@@ -201,6 +203,7 @@ class QuestionButton extends StatelessWidget {
   final String title;
 
   QuestionButton({
+    this.key,
     @required this.onTap,
     this.padding,
     this.icon,

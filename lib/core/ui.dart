@@ -102,6 +102,7 @@ class RenderCameraStream extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 CancelButton(
+                  key: ValueKey("HeaderCancelButton"),
                   opacity: 1,
                   padding: padding_a_xs,
                   onTap: () {

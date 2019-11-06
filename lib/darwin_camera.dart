@@ -157,7 +157,8 @@ class _DarwinCameraState extends State<DarwinCamera>
       return Stack(
         children: <Widget>[
           getRenderCameraStreamWidget(
-              showCameraToggle: areMultipleCamerasAvailable),
+            showCameraToggle: areMultipleCamerasAvailable,
+          ),
 
           ///
           /// !important We show captured image on the top of camera preview stream.
@@ -182,6 +183,7 @@ class _DarwinCameraState extends State<DarwinCamera>
     bool showCameraToggle,
   }) {
     return RenderCameraStream(
+      key: ValueKey("CameraStream"),
       cameraController: cameraController,
       showHeader: true,
       disableNativeBackFunctionality: widget.disableNativeBackFunctionality,
@@ -194,11 +196,13 @@ class _DarwinCameraState extends State<DarwinCamera>
         opacity: 0,
       ),
       centerFooterButton: CaptureButton(
+        key: ValueKey("CaptureButton"),
         buttonPosition: captureButtonPosition,
         buttonSize: captureButtonSize,
         onTap: captureImage,
       ),
       rightFooterButton: ToggleCameraButton(
+        key: ValueKey("CameraToggleButton"),
         onTap: toggleCamera,
         opacity: showCameraToggle ? 1.0 : 0.0,
       ),
@@ -211,8 +215,10 @@ class _DarwinCameraState extends State<DarwinCamera>
     // print(file.path);
     // print(file.path);
     return RenderCapturedImage(
+      key: ValueKey("RenderCapturedImageWidget"),
       file: file,
       leftFooterButton: CancelButton(
+        key: ValueKey("CapturedImageCancelButton"),
         opacity: 1,
         onTap: () {
           setCameraState(CameraState.NOT_CAPTURING);
