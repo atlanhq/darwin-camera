@@ -1,5 +1,11 @@
 # Darwin Camera
 
+Camera plugin for [Flutter](https://flutter.io).
+Supports both iOS and Android.
+
+- Quickly capture image using the using this plugin without going deep into the implementation of official Camera plugin provides by the flutter developers. 
+- Image compression using [flutter_image_compress](https://pub.dev/packages/flutter_image_compress)
+
 <img src="https://user-images.githubusercontent.com/9272830/68128635-18c30500-ff3e-11e9-8a32-c32496d5856f.jpg" width="35%"></img> 
 
 
