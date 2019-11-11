@@ -56,9 +56,6 @@ minSdkVersion 21
 
 
 
-For help getting started with Flutter, view the online
-[documentation](https://flutter.io/).
-
 ## Usage example
 ```dart
 import 'package:darwin_camera/darwin_camera.dart';
@@ -136,10 +133,6 @@ See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) 
     ├── helper.dart
     └── ui.dart
 ```
-
-
-<br/><br/>
-
 
 <img src="https://user-images.githubusercontent.com/408863/66741678-a78ab780-ee93-11e9-8d90-b274af222339.png" align="centre" />
 
