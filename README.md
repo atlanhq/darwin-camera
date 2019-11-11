@@ -85,7 +85,7 @@ DarwinCamera({
 ```
 
 ### Complete example with handling permission
-See the example directory in the github repository
+See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) directory in the github repository
 
 
 
