@@ -6,9 +6,8 @@ Supports both iOS and Android.
 - Quickly capture image using the using this plugin without going deep into the implementation of official Camera plugin provides by the flutter developers. 
 - Image compression using [flutter_image_compress](https://pub.dev/packages/flutter_image_compress)
 
-https://img.shields.io/badge/license-MIT-green
-
 <img src="https://img.shields.io/badge/license-MIT-green"></img>
+
 
 ## Getting Started
 
