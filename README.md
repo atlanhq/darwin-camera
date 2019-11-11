@@ -23,13 +23,38 @@ Supports both iOS and Android.
 
 ## Getting Started
 
-In your flutter project add `darwin_camera` as a dependency:
+In your flutter project add `darwin_camera` as a dependency in `pubspec.yaml`:
 
 ```yml
 dependencies:
   ...
   darwin_camera: ^0.0.1
 ```
+### iOS
+
+Add two rows to the `ios/Runner/Info.plist`:
+
+* one with the key `Privacy - Camera Usage Description` and a usage description.
+* and one with the key `Privacy - Microphone Usage Description` and a usage description.
+
+Or in text format add the key:
+
+```xml
+<key>NSCameraUsageDescription</key>
+<string>Can I use the camera please?</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>Can I use the mic please?</string>
+```
+
+### Android
+
+Change the minimum Android sdk version to 21 (or higher) in your `android/app/build.gradle` file.
+
+```
+minSdkVersion 21
+```
+
+
 
 For help getting started with Flutter, view the online
 [documentation](https://flutter.io/).
