@@ -237,7 +237,7 @@ class CancelButton extends StatelessWidget {
           opacity: opacity,
           child: Icon(
             Icons.cancel,
-            color: DarwinDanger,
+            color: DarwinWhite,
             size: grid_spacer * 4,
           ),
         ),
