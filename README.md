@@ -8,7 +8,6 @@ Supports both iOS and Android.
 
 https://img.shields.io/badge/license-MIT-green
 
-<img src="https://img.shields.io/badge/license-MIT-green"></img>
 
 ## Getting Started
 
