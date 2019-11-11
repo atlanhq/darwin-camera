@@ -8,6 +8,17 @@ Supports both iOS and Android.
 
 <img src="https://img.shields.io/badge/license-MIT-green"></img>
 
+## Screenshots
+
+
+| Camera Stream                  | Preview Captured Image         |
+|     :---:       |     :---:       |
+| <img src="https://user-images.githubusercontent.com/9272830/68597615-4ae6e080-04c3-11ea-9e1d-77b002827807.PNG" width="50%" ></img> | <img src="https://user-images.githubusercontent.com/9272830/68597699-69e57280-04c3-11ea-9faf-ef5bbdbf2c9f.PNG" width="50%" ></img> |
+|Press the white button to capture image | Press the green button to save image |
+
+
+
+
 
 ## Getting Started
 
