@@ -122,6 +122,8 @@ DarwinCamera({
 ### Complete example with handling permission
 See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) directory in the github repository
 
+### How to contribute?
+See [CONTRIBUTING.md](https://github.com/atlanhq/darwin-camera/blob/master/CONTRIBUTING.md)
 
 
 ### Directory structure
