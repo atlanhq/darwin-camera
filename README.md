@@ -29,7 +29,9 @@ In your flutter project add `darwin_camera` as a dependency in `pubspec.yaml`:
 ```yml
 dependencies:
   ...
-  darwin_camera: ^0.0.1
+  darwin_camera:
+    git: https://github.com/atlanhq/darwin-camera
+    
 ```
 ### iOS
 
