@@ -2,11 +2,16 @@
 
 <img src="https://img.shields.io/badge/license-MIT-green"></img>
 
-Camera plugin for [Flutter](https://flutter.io).
-Supports both iOS and Android.
+Darwin camera makes it super easy to add camera to your Flutter app. It uses the official camera plugin implementation underneath
 
-- Render camera stream, caputure image, compress it, preview it and save it. All in one widget so that you don't spend your time figuring our the basics and focus on your idea.
-- Image compression using [flutter_image_compress](https://pub.dev/packages/flutter_image_compress)
+- Scales the preview based on the aspect ratio of the device
+  - Automatic output cropping to match the preview
+- Provides a toggle between front and back camera
+  - You can configure what it defaults to on opening
+- Provides compression for the captured image which can be configured
+  - Uses the flutter_image_compress library
+- Provides a minimal UI for the reviewing the capture before save
+- Supports both Android and iOS
 
 
 ## Screenshots
