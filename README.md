@@ -128,16 +128,5 @@ See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) 
 See [CONTRIBUTING.md](https://github.com/atlanhq/darwin-camera/blob/master/CONTRIBUTING.md)
 
 
-### Directory structure
-
-```
-.
-├── darwin_camera.dart
-└── core
-    ├── core.dart
-    ├── helper.dart
-    └── ui.dart
-```
-
 <img src="https://user-images.githubusercontent.com/408863/66741678-a78ab780-ee93-11e9-8d90-b274af222339.png" align="centre" />
 
