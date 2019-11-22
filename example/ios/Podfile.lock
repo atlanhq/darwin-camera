@@ -3,8 +3,6 @@ PODS:
     - Flutter
   - darwin_camera (0.0.1):
     - Flutter
-  - darwin_design_system (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
   - flutter_image_compress (0.0.1):
     - Flutter
@@ -20,7 +18,6 @@ PODS:
 DEPENDENCIES:
   - camera (from `.symlinks/plugins/camera/ios`)
   - darwin_camera (from `.symlinks/plugins/darwin_camera/ios`)
-  - darwin_design_system (from `.symlinks/plugins/darwin_design_system/ios`)
   - Flutter (from `Flutter`)
   - flutter_image_compress (from `.symlinks/plugins/flutter_image_compress/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
@@ -35,8 +32,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/camera/ios"
   darwin_camera:
     :path: ".symlinks/plugins/darwin_camera/ios"
-  darwin_design_system:
-    :path: ".symlinks/plugins/darwin_design_system/ios"
   Flutter:
     :path: Flutter
   flutter_image_compress:
@@ -49,7 +44,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   camera: 38cc83ae9a5667bb5a71c7d9edaf60a91920fd4e
   darwin_camera: fbdc05392614f393a0761272717f8cfb53c2c565
-  darwin_design_system: 0af89108964ce07feb2b63f4210d4fdc069c79ae
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_image_compress: f69d0e0e078ce52b4810695593bc861ee319ae7d
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
