@@ -1,5 +1,8 @@
-# <img width = "50%" src="https://user-images.githubusercontent.com/9272830/69420377-92336380-0d44-11ea-9f1b-c7969fa95e78.png">
+<p align="center">
+  <img width="35%" src="https://user-images.githubusercontent.com/9272830/69432210-3fb37080-0d5f-11ea-8c07-b54a09380955.png">
+<p>
 
+# Darwin Camera
 <img src="https://user-images.githubusercontent.com/9272830/68128635-18c30500-ff3e-11e9-8a32-c32496d5856f.jpg" width="35%" align="right">
  </img> 
 
@@ -11,21 +14,18 @@ Darwin camera makes it super easy to add camera to your Flutter app. It uses the
 - Captures RAW image at maximum resolution supported by the device camera.
 - Provides a toggle between front and back camera.
   - You can configure what it defaults to on opening.
-- Provides simple configuration to compress the captured image.
-  - Quality of final image can be configured.
+- Provides configuration to set quality of the captured image.
   - Uses the [flutter_image_compress](https://pub.dev/packages/flutter_image_compress) library.
 - Provides a minimal UI for the reviewing the capture before saving image.
 - Supports both Android and iOS.
 
 
-## Screenshots
-
 
 | Camera Stream                  | Preview Captured Image         |
 |     :---:       |     :---:       |
 | <img src="https://user-images.githubusercontent.com/9272830/69421271-a11b1580-0d46-11ea-9dcf-b3d508a2f381.jpeg" width="50%" ></img> | <img src="https://user-images.githubusercontent.com/9272830/69421319-c3149800-0d46-11ea-9664-198faf125a60.jpeg" width="50%" ></img> |
-| Press the `White circular button` to capture image | Press the `Green button` to save image |
-| Press the button at the bottom right to `toggle camera` | Press the close button to `discard captured image` |
+| Press the `white circular button` to capture image. | Press the `green button` to save the image. |
+| Press the button at the bottom right to `toggle camera`. | Press the close button to `discard` the `captured image`. |
 
 
 
@@ -94,9 +94,8 @@ if (result != null && result.isFileAvailable) {
 
 ```
 
-### Creating a Image capture Widget
-
-This widget captures an image at a provided file path.
+### `DarwinCamera` configuration 
+This widget captures an image and save it at the path provided by you.
 
 ```dart
 DarwinCamera({
@@ -139,10 +138,19 @@ DarwinCamera({
   int quality = 90;
 
 })
+
 ```
 
 ## Complete example with permission handling.
 See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) directory in the github repository
+
+
+## Tests
+
+```bash
+cd example
+flutter drive --target=test_driver/app.dart
+```
 
 ## How to contribute?
 See [CONTRIBUTING.md](https://github.com/atlanhq/darwin-camera/blob/master/CONTRIBUTING.md)
