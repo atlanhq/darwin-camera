@@ -67,9 +67,7 @@ class RenderCameraStream extends StatelessWidget {
     ///
     return ClipRect(
       child: Container(
-        child: Transform.scale(
-          scale: cameraAspectRatio / size.aspectRatio,
-          child: Center(
+        child: Center(
             child: AspectRatio(
               aspectRatio: cameraAspectRatio,
               child: CameraPreview(cameraController),
@@ -78,7 +76,20 @@ class RenderCameraStream extends StatelessWidget {
               //     : previewCamera(cameraState),
             ),
           ),
-        ),
+        ///
+        /// FIX: Provide multiple presets and aspects ratio to the users.
+        // Transform.scale(
+        //   scale: cameraAspectRatio / size.aspectRatio,
+        //   child: Center(
+        //     child: AspectRatio(
+        //       aspectRatio: cameraAspectRatio,
+        //       child: CameraPreview(cameraController),
+        //       // (cameraMode == CameraMode.BARCODE)
+        //       //     ? Container()
+        //       //     : previewCamera(cameraState),
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
