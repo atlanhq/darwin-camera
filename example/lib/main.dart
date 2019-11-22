@@ -81,6 +81,7 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
           filePath: filePath,
           resolution: ResolutionPreset.high,
           defaultToFrontFacing: true,
+          quality: 90,
         ),
       ),
     );

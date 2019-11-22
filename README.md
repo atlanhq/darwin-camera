@@ -75,6 +75,8 @@ import 'package:darwin_camera/darwin_camera.dart';
        cameraDescription: cameraDescription,
        filePath: filePath,
        resolution: ResolutionPreset.high,
+       defaultToFrontFacing: true,
+       quality: 90,
      ),
    ),
  );
@@ -122,6 +124,15 @@ DarwinCamera({
   /// 2. ResolutionPreset.medium
   /// 3. ResolutionPreset.low
   ResolutionPreset resolution = ResolutionPreset.high, 
+
+  ///
+  /// Open front camera instead of back camera on launch.
+  bool defaultToFrontFacing = false;
+
+  ///
+  /// Decides the quality of final image captured.
+  /// Possible values `0 - 100`
+  int quality = 90;
 
 })
 ```
