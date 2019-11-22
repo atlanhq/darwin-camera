@@ -27,6 +27,7 @@ class DarwinCameraHelper {
     CameraController cameraController,
     String filePath, {
     bool enableCompression = true,
+    int quality,
   }) async {
     imageCache.clear();
     if (!cameraController.value.isInitialized) {
@@ -47,7 +48,7 @@ class DarwinCameraHelper {
 
       file = File(filePath);
       if (enableCompression == true) {
-        await compressImage(file);
+        await compressImage(file, quality);
       }
     } on CameraException catch (e, stacktrace) {
       print(e);
@@ -60,11 +61,11 @@ class DarwinCameraHelper {
   ///
   ///
   /// Compress Image saved in phone internal storage.
-  static compressImage(File file) async {
+  static compressImage(File file, int quality) async {
     var result;
     result = await FlutterImageCompress.compressWithFile(
       file.absolute.path,
-      quality: 50,
+      quality: quality,
       autoCorrectionAngle: true,
       keepExif: true,
     );

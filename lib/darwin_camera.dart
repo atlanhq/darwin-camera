@@ -52,9 +52,10 @@ class DarwinCamera extends StatefulWidget {
     this.enableCompression = false,
     this.disableNativeBackFunctionality = false,
     this.defaultToFrontFacing = false,
-    this.quality = 100,
+    this.quality = 90,
   })  : assert(cameraDescription != null),
         assert(filePath != null),
+        assert(enableCompression == true && quality != null),
         assert(quality >= 0 && quality <= 100),
         super(key: key);
 
@@ -134,8 +135,10 @@ class _DarwinCameraState extends State<DarwinCamera>
     try {
       String savedFilePath;
       savedFilePath = await DarwinCameraHelper.captureImage(
-          cameraController, widget.filePath,
-          enableCompression: widget.enableCompression);
+        cameraController,
+        widget.filePath,
+        enableCompression: widget.enableCompression,
+      );
       file = File(savedFilePath);
       setCameraState(CameraState.CAPTURED);
     } catch (e) {
