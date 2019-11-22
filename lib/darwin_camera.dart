@@ -55,7 +55,6 @@ class DarwinCamera extends StatefulWidget {
     this.quality = 90,
   })  : assert(cameraDescription != null),
         assert(filePath != null),
-        assert(enableCompression == true && quality != null),
         assert(quality >= 0 && quality <= 100),
         super(key: key);
 
