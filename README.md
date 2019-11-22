@@ -1,5 +1,8 @@
-# <img width = "50%" src="https://user-images.githubusercontent.com/9272830/69420377-92336380-0d44-11ea-9f1b-c7969fa95e78.png">
+<p align="center">
+  <img width="50%" src="https://user-images.githubusercontent.com/9272830/69432210-3fb37080-0d5f-11ea-8c07-b54a09380955.png">
+<p>
 
+# Darwin Camera
 <img src="https://user-images.githubusercontent.com/9272830/68128635-18c30500-ff3e-11e9-8a32-c32496d5856f.jpg" width="35%" align="right">
  </img> 
 
