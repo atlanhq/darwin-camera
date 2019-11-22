@@ -8,8 +8,7 @@
 
 Darwin camera makes it super easy to add camera to your Flutter app. It uses the official camera plugin implementation underneath.
 
-- Scales the preview based on the aspect ratio of the device.
-  - Automatic output cropping to match the preview.
+- Captures RAW image at maximum resolution supported by the device camera.
 - Provides a toggle between front and back camera.
   - You can configure what it defaults to on opening.
 - Provides simple configuration to compress the captured image.
@@ -107,7 +106,7 @@ DarwinCamera({
   bool enableCompression = false, 
   
   ///
-  /// Disables native back functionality provided by iOS using the swipe gestures.
+  /// Disables swipe based native back functionality provided by iOS.
   bool disableNativeBackFunctionality = false,
   
   /// @Required
