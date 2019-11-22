@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="50%" src="https://user-images.githubusercontent.com/9272830/69432210-3fb37080-0d5f-11ea-8c07-b54a09380955.png">
+  <img width="35%" src="https://user-images.githubusercontent.com/9272830/69432210-3fb37080-0d5f-11ea-8c07-b54a09380955.png">
 <p>
 
 # Darwin Camera
