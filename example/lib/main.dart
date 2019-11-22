@@ -64,6 +64,18 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
     );
 
     ///
+    /// Microphone permission is required for android devices.
+    /// if permission isn't given before opening camera. 
+    /// The app will crash.
+    /// 
+    /// For iOS devices, it's not neccessary. You can skip microphone permission.
+    /// Required for android devices. 
+    await checkForPermissionBasedOnPermissionGroup(
+      permissionHandler,
+      PermissionGroup.microphone,
+    );
+
+    ///
     String filePath = await FileUtils.getDefaultFilePath();
     String uuid = DateTime.now().millisecondsSinceEpoch.toString();
 
