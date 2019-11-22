@@ -39,6 +39,11 @@ class DarwinCamera extends StatefulWidget {
   /// Open front camera instead of back camera on launch.
   final bool defaultToFrontFacing;
 
+  ///
+  /// Decides the quality of final image captured.
+  /// Possible values `0 - 100`
+  final int quality;
+
   DarwinCamera({
     Key key,
     @required this.cameraDescription,
@@ -47,7 +52,11 @@ class DarwinCamera extends StatefulWidget {
     this.enableCompression = false,
     this.disableNativeBackFunctionality = false,
     this.defaultToFrontFacing = false,
-  }) : super(key: key);
+    this.quality = 100,
+  })  : assert(cameraDescription != null),
+        assert(filePath != null),
+        assert(quality >= 0 && quality <= 100),
+        super(key: key);
 
   _DarwinCameraState createState() => _DarwinCameraState();
 }
