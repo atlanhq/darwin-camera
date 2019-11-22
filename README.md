@@ -1,7 +1,10 @@
-<img width = "50%" src="https://user-images.githubusercontent.com/9272830/69420377-92336380-0d44-11ea-9f1b-c7969fa95e78.png">
- <img src="https://user-images.githubusercontent.com/9272830/68128635-18c30500-ff3e-11e9-8a32-c32496d5856f.jpg" width="35%" align="right"></img> 
+# <img width = "50%" src="https://user-images.githubusercontent.com/9272830/69420377-92336380-0d44-11ea-9f1b-c7969fa95e78.png">
+
+<img src="https://user-images.githubusercontent.com/9272830/68128635-18c30500-ff3e-11e9-8a32-c32496d5856f.jpg" width="35%" align="right">
+ </img> 
 
 <img src="https://img.shields.io/badge/license-MIT-green"></img>
+
 
 Darwin camera makes it super easy to add camera to your Flutter app. It uses the official camera plugin implementation underneath.
 
