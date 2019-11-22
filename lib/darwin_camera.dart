@@ -35,6 +35,10 @@ class DarwinCamera extends StatefulWidget {
   /// 3. ResolutionPreset.low
   final ResolutionPreset resolution;
 
+  ///
+  /// Open front camera instead of back camera on launch.
+  final bool defaultToFrontFacing;
+
   DarwinCamera({
     Key key,
     @required this.cameraDescription,
@@ -42,6 +46,7 @@ class DarwinCamera extends StatefulWidget {
     this.resolution = ResolutionPreset.high,
     this.enableCompression = false,
     this.disableNativeBackFunctionality = false,
+    this.defaultToFrontFacing = false,
   }) : super(key: key);
 
   _DarwinCameraState createState() => _DarwinCameraState();
@@ -79,7 +84,10 @@ class _DarwinCameraState extends State<DarwinCamera>
   initVariables() {
     cameraState = CameraState.NOT_CAPTURING;
     file = File(widget.filePath);
-    selectCamera(0, reInitialize: false);
+
+    ///
+    int defaultCameraIndex = widget.defaultToFrontFacing ? 1 : 0;
+    selectCamera(defaultCameraIndex, reInitialize: false);
   }
 
   selectCamera(int index, {bool reInitialize}) {
