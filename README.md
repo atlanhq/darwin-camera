@@ -23,7 +23,7 @@ Darwin camera makes it super easy to add camera to your Flutter app. It uses the
 
 | Camera Stream                  | Preview Captured Image         |
 |     :---:       |     :---:       |
-| <img src="https://user-images.githubusercontent.com/9272830/68597615-4ae6e080-04c3-11ea-9e1d-77b002827807.PNG" width="50%" ></img> | <img src="https://user-images.githubusercontent.com/9272830/68597699-69e57280-04c3-11ea-9faf-ef5bbdbf2c9f.PNG" width="50%" ></img> |
+| <img src="https://user-images.githubusercontent.com/9272830/69421271-a11b1580-0d46-11ea-9dcf-b3d508a2f381.jpeg" width="50%" ></img> | <img src="https://user-images.githubusercontent.com/9272830/69421319-c3149800-0d46-11ea-9664-198faf125a60.jpeg" width="50%" ></img> |
 | Press the `White circular button` to capture image | Press the `Green button` to save image |
 | Press the button at the bottom right to `toggle camera` | Press the close button to `discard captured image` |
 
@@ -141,10 +141,10 @@ DarwinCamera({
 })
 ```
 
-### Complete example with handling permission
+## Complete example with permission handling.
 See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) directory in the github repository
 
-### How to contribute?
+## How to contribute?
 See [CONTRIBUTING.md](https://github.com/atlanhq/darwin-camera/blob/master/CONTRIBUTING.md)
 
 
