@@ -1,7 +1,7 @@
 name: darwin_camera
 description: A new flutter plugin project.
 version: 0.0.1
-author:
+author: Atlan Engineering <engineering@atlan.com>
 homepage: "https://atlan.com/"
 
 environment:
