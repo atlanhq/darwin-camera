@@ -1,16 +1,74 @@
-# darwin_camera_example
-
+# Darwin Camera Example
 Demonstrates how to use the darwin_camera plugin.
 
-## Getting Started
+```dart
+import 'package:darwin_camera/darwin_camera.dart';
 
-This project is a starting point for a Flutter application.
+ DarwinCameraResult result = await Navigator.push(
+   context,
+   MaterialPageRoute(
+     builder: (context) => DarwinCamera(
+       cameraDescription: cameraDescription,
+       filePath: filePath,
+       resolution: ResolutionPreset.high,
+       defaultToFrontFacing: false,
+       quality: 90,
+     ),
+   ),
+ );
 
-A few resources to get you started if this is your first Flutter project:
+if (result != null && result.isFileAvailable) {
+   /// File object returned by Camera.
+   print(result.file);
+   /// Path where the file is faced. 
+   print(result.file.path);
+ }
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### `DarwinCamera` configuration 
+This widget captures an image and save it at the path provided by you.
+
+```dart
+DarwinCamera({
+  
+  ///
+  /// Flag to enable/disable image compression.
+  bool enableCompression = false, 
+  
+  ///
+  /// Disables swipe based native back functionality provided by iOS.
+  bool disableNativeBackFunctionality = false,
+  
+  /// @Required
+  /// List of cameras availale in the device.
+  /// 
+  /// How to get the list available cameras?
+  /// `List<CameraDescription> cameraDescription = await availableCameras();`
+  List<CameraDescription> cameraDescription, 
+  
+  /// @Required
+  
+  /// Path where the image file will be saved.
+  String filePath, 
+  
+  /// 
+  /// Resolution of the image captured
+  /// Possible values:
+  /// 1. ResolutionPreset.high
+  /// 2. ResolutionPreset.medium
+  /// 3. ResolutionPreset.low
+  ResolutionPreset resolution = ResolutionPreset.high, 
+
+  ///
+  /// Open front camera instead of back camera on launch.
+  bool defaultToFrontFacing = false;
+
+  ///
+  /// Decides the quality of final image captured.
+  /// Possible values `0 - 100`
+  int quality = 90;
+
+})
+
+```

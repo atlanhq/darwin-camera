@@ -1,6 +1,6 @@
 name: darwin_camera
 description: A Flutter plugin that simplifies camera app development.
-version: 0.0.1
+version: 0.0.2
 author: Atlan Engineering <engineering@atlan.com>
 homepage: "https://atlan.com/"
 
