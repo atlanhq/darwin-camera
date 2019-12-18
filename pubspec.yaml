@@ -1,5 +1,5 @@
 name: darwin_camera
-description: A new flutter plugin project.
+description: A Flutter plugin that simplifies camera app development.
 version: 0.0.1
 author: Atlan Engineering <engineering@atlan.com>
 homepage: "https://atlan.com/"
@@ -18,10 +18,6 @@ dev_dependencies:
     sdk: flutter
   flutter_test:
     sdk: flutter
-
-# dependency_overrides:
-#   darwin_design_system:
-#     git: git@github.com:atlanhq/darwin-ui.git
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
