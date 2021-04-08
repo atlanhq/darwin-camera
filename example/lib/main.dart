@@ -16,13 +16,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
   @override
   void initState() {
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,11 +62,11 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
 
     ///
     /// Microphone permission is required for android devices.
-    /// if permission isn't given before opening camera. 
+    /// if permission isn't given before opening camera.
     /// The app will crash.
-    /// 
+    ///
     /// For iOS devices, it's not neccessary. You can skip microphone permission.
-    /// Required for android devices. 
+    /// Required for android devices.
     await checkForPermissionBasedOnPermissionGroup(
       permissionHandler,
       PermissionGroup.microphone,
@@ -94,6 +91,25 @@ class _DarwinCameraTutorialState extends State<DarwinCameraTutorial> {
           resolution: ResolutionPreset.high,
           defaultToFrontFacing: false,
           quality: 90,
+          cancelWidget: Container(
+            height: 50,
+            width: 50,
+            color: Colors.blue,
+          ),
+          captureWidget: Container(
+            height: 50,
+            width: 50,
+            color: Colors.red,
+          ),
+          cameraToggleWidget: Icon(
+            Icons.flip_camera_android,
+            color: Colors.white,
+          ),
+          confirmWidget: Container(
+            height: 50,
+            width: 50,
+            color: Colors.green,
+          ),
         ),
       ),
     );
