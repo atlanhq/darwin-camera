@@ -20,6 +20,7 @@ class RenderCameraStream extends StatelessWidget {
   final Widget leftFooterButton;
   final Widget centerFooterButton;
   final Widget rightFooterButton;
+  final Widget cancelButton;
   final Function onBackPress;
 
   const RenderCameraStream({
@@ -36,6 +37,7 @@ class RenderCameraStream extends StatelessWidget {
     @required this.leftFooterButton,
     @required this.centerFooterButton,
     @required this.rightFooterButton,
+    this.cancelButton,
   }) : super(key: key);
 
   @override
@@ -49,7 +51,7 @@ class RenderCameraStream extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           getCameraStream(context),
-          getHeader(showHeader),
+          getHeader(showHeader, cancelButton),
           getFooter(showFooter),
         ],
       ),
@@ -68,14 +70,15 @@ class RenderCameraStream extends StatelessWidget {
     return ClipRect(
       child: Container(
         child: Center(
-            child: AspectRatio(
-              aspectRatio: cameraAspectRatio,
-              child: CameraPreview(cameraController),
-              // (cameraMode == CameraMode.BARCODE)
-              //     ? Container()
-              //     : previewCamera(cameraState),
-            ),
+          child: AspectRatio(
+            aspectRatio: cameraAspectRatio,
+            child: CameraPreview(cameraController),
+            // (cameraMode == CameraMode.BARCODE)
+            //     ? Container()
+            //     : previewCamera(cameraState),
           ),
+        ),
+
         ///
         /// FIX: Provide multiple presets and aspects ratio to the users.
         // Transform.scale(
@@ -97,7 +100,7 @@ class RenderCameraStream extends StatelessWidget {
   ///
   /// Header is aligned in the top center
   /// It will show back button onf this page
-  Widget getHeader(bool showHeader) {
+  Widget getHeader(bool showHeader, Widget child) {
     return Visibility(
       child: Align(
         alignment: Alignment.topCenter,
@@ -116,6 +119,7 @@ class RenderCameraStream extends StatelessWidget {
                   key: ValueKey("HeaderCancelButton"),
                   opacity: 1,
                   padding: padding_a_xs,
+                  child: child,
                   onTap: () {
                     if (onBackPress != null) {
                       onBackPress();
@@ -225,6 +229,7 @@ class CancelButton extends StatelessWidget {
   final Function onTap;
   final double opacity;
   final EdgeInsets padding;
+  final Widget child;
 
   ///
   CancelButton({
@@ -232,6 +237,7 @@ class CancelButton extends StatelessWidget {
     @required this.onTap,
     @required this.opacity,
     this.padding = padding_a_s,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -242,15 +248,16 @@ class CancelButton extends StatelessWidget {
           onTap();
         }
       },
-      child: Container(
-        padding: padding,
-        child: Opacity(
-          opacity: opacity,
-          child: Icon(
-            Icons.cancel,
-            color: DarwinWhite,
-            size: grid_spacer * 4,
-          ),
+      child: Opacity(
+        opacity: opacity,
+        child: Container(
+          padding: padding,
+          child: child ??
+              Icon(
+                Icons.cancel,
+                color: DarwinWhite,
+                size: grid_spacer * 4,
+              ),
         ),
       ),
     );
@@ -277,12 +284,14 @@ class CaptureButton extends StatelessWidget {
   final double buttonSize;
   final double buttonPosition;
   final Function onTap;
+  final Widget child;
 
   CaptureButton({
     Key key,
     @required this.buttonSize,
     @required this.buttonPosition,
     @required this.onTap,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -298,34 +307,35 @@ class CaptureButton extends StatelessWidget {
       height: grid_spacer * 14,
       width: grid_spacer * 14,
       alignment: Alignment.center,
-      child: Stack(
-        children: <Widget>[
-          AnimatedContainer(
-            alignment: Alignment.center,
-            duration: Duration(milliseconds: 100),
-            width: buttonSize,
-            height: buttonSize,
-            decoration: BoxDecoration(
-              color: DarwinWhite.withOpacity(0.25),
-              borderRadius: BorderRadius.circular(grid_spacer * 12),
-            ),
-          ),
-          AnimatedPositioned(
-            duration: Duration(milliseconds: 100),
-            top: buttonPosition,
-            left: buttonPosition,
-            child: AnimatedContainer(
-              duration: Duration(milliseconds: 100),
-              width: grid_spacer * 8,
-              height: grid_spacer * 8,
-              decoration: BoxDecoration(
-                color: DarwinWhite,
-                borderRadius: BorderRadius.circular(grid_spacer * 10),
+      child: child ??
+          Stack(
+            children: <Widget>[
+              AnimatedContainer(
+                alignment: Alignment.center,
+                duration: Duration(milliseconds: 100),
+                width: buttonSize,
+                height: buttonSize,
+                decoration: BoxDecoration(
+                  color: DarwinWhite.withOpacity(0.25),
+                  borderRadius: BorderRadius.circular(grid_spacer * 12),
+                ),
               ),
-            ),
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 100),
+                top: buttonPosition,
+                left: buttonPosition,
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: 100),
+                  width: grid_spacer * 8,
+                  height: grid_spacer * 8,
+                  decoration: BoxDecoration(
+                    color: DarwinWhite,
+                    borderRadius: BorderRadius.circular(grid_spacer * 10),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
     );
   }
 }
@@ -349,9 +359,12 @@ class CaptureButton extends StatelessWidget {
 
 class ConfirmButton extends StatelessWidget {
   final Function onTap;
+  final Widget child;
+
   const ConfirmButton({
     Key key,
     @required this.onTap,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -361,19 +374,20 @@ class ConfirmButton extends StatelessWidget {
         width: grid_spacer * 14,
         height: grid_spacer * 14,
         alignment: Alignment.center,
-        child: Container(
-          width: grid_spacer * 10,
-          height: grid_spacer * 10,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(grid_spacer * 12),
-            color: DarwinSuccess,
-          ),
-          child: Icon(
-            Icons.check,
-            color: DarwinWhite,
-            size: grid_spacer * 4,
-          ),
-        ),
+        child: child ??
+            Container(
+              width: grid_spacer * 10,
+              height: grid_spacer * 10,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(grid_spacer * 12),
+                color: DarwinSuccess,
+              ),
+              child: Icon(
+                Icons.check,
+                color: DarwinWhite,
+                size: grid_spacer * 4,
+              ),
+            ),
       ),
       onTap: () {
         if (onTap != null) {
@@ -407,10 +421,13 @@ class ConfirmButton extends StatelessWidget {
 class ToggleCameraButton extends StatelessWidget {
   final Function onTap;
   final double opacity;
+  final Widget child;
+
   const ToggleCameraButton({
     Key key,
     @required this.onTap,
     this.opacity = 1.0,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -420,11 +437,12 @@ class ToggleCameraButton extends StatelessWidget {
         padding: padding_a_s,
         child: Opacity(
           opacity: opacity,
-          child: Icon(
-            Icons.refresh,
-            color: DarwinWhite,
-            size: grid_spacer * 4,
-          ),
+          child: child ??
+              Icon(
+                Icons.refresh,
+                color: DarwinWhite,
+                size: grid_spacer * 4,
+              ),
         ),
       ),
       onTap: onTap,

@@ -6,7 +6,6 @@
 
 <img src="https://img.shields.io/badge/license-MIT-green"></img>
 
-
 Darwin camera makes it super easy to add camera to your Flutter app. It uses the official camera plugin implementation underneath.
 
 - Captures RAW image at maximum resolution supported by the device camera.
@@ -17,17 +16,11 @@ Darwin camera makes it super easy to add camera to your Flutter app. It uses the
 - Provides a minimal UI for the reviewing the capture before saving image.
 - Supports both Android and iOS.
 
-
-
-| Camera Stream                  | Preview Captured Image         |
-|     :---:       |     :---:       |
+|                                                            Camera Stream                                                            |                                                       Preview Captured Image                                                        |
+| :---------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
 | <img src="https://user-images.githubusercontent.com/9272830/69421271-a11b1580-0d46-11ea-9dcf-b3d508a2f381.jpeg" width="50%" ></img> | <img src="https://user-images.githubusercontent.com/9272830/69421319-c3149800-0d46-11ea-9664-198faf125a60.jpeg" width="50%" ></img> |
-| Press the `white circular button` to capture image. | Press the `green button` to save the image. |
-| Press the button at the bottom right to `toggle camera`. | Press the close button to `discard` the `captured image`. |
-
-
-
-
+|                                         Press the `white circular button` to capture image.                                         |                                             Press the `green button` to save the image.                                             |
+|                                      Press the button at the bottom right to `toggle camera`.                                       |                                      Press the close button to `discard` the `captured image`.                                      |
 
 ## Getting Started
 
@@ -38,14 +31,15 @@ dependencies:
   ...
   darwin_camera:
     git: https://github.com/atlanhq/darwin-camera
-    
+
 ```
+
 ### iOS
 
 Add two rows to the `ios/Runner/Info.plist`:
 
-* one with the key `Privacy - Camera Usage Description` and a usage description.
-* and one with the key `Privacy - Microphone Usage Description` and a usage description.
+- one with the key `Privacy - Camera Usage Description` and a usage description.
+- and one with the key `Privacy - Microphone Usage Description` and a usage description.
 
 Or in text format add the key:
 
@@ -64,9 +58,8 @@ Change the minimum Android sdk version to 21 (or higher) in your `android/app/bu
 minSdkVersion 21
 ```
 
-
-
 ## Usage example
+
 ```dart
 import 'package:darwin_camera/darwin_camera.dart';
 
@@ -86,45 +79,101 @@ import 'package:darwin_camera/darwin_camera.dart';
 if (result != null && result.isFileAvailable) {
    /// File object returned by Camera.
    print(result.file);
-   /// Path where the file is faced. 
+   /// Path where the file is faced.
    print(result.file.path);
  }
-
 ```
 
-### `DarwinCamera` configuration 
+### `DarwinCamera` customization
+
+You can also pass custom Capture, Toggle, Confirm and Cancel widgets.
+
+```dart
+ DarwinCameraResult result = await Navigator.push(
+   context,
+   MaterialPageRoute(
+     builder: (context) => DarwinCamera(
+       cameraDescription: cameraDescription,
+       filePath: filePath,
+       resolution: ResolutionPreset.high,
+       defaultToFrontFacing: false,
+       quality: 90,
+       captureWidget: Container(
+          height: 50,
+          width: 50,
+          color: Colors.red,
+          child: Center(
+            child: Icon(
+              Icons.camera,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        cameraToggleWidget: Icon(
+          Icons.flip_camera_android,
+          color: Colors.white,
+        ),
+        confirmWidget: Container(
+          height: 50,
+          width: 50,
+          color: Colors.green,
+          child: Center(
+            child: Icon(
+              Icons.check,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        cancelWidget: Container(
+          height: 50,
+          width: 50,
+          color: Colors.black,
+          child: Center(
+            child: Icon(
+              Icons.cancel,
+              color: Colors.white,
+            ),
+          ),
+        ),
+     ),
+   ),
+ );
+```
+
+### `DarwinCamera` configuration
+
 This widget captures an image and save it at the path provided by you.
 
 ```dart
 DarwinCamera({
-  
+
   ///
   /// Flag to enable/disable image compression.
-  bool enableCompression = false, 
-  
+  bool enableCompression = false,
+
   ///
   /// Disables swipe based native back functionality provided by iOS.
   bool disableNativeBackFunctionality = false,
-  
+
   /// @Required
   /// List of cameras availale in the device.
-  /// 
+  ///
   /// How to get the list available cameras?
   /// `List<CameraDescription> cameraDescription = await availableCameras();`
-  List<CameraDescription> cameraDescription, 
-  
+  List<CameraDescription> cameraDescription,
+
   /// @Required
-  
+
   /// Path where the image file will be saved.
-  String filePath, 
-  
-  /// 
+  String filePath,
+
+  ///
   /// Resolution of the image captured
   /// Possible values:
   /// 1. ResolutionPreset.high
   /// 2. ResolutionPreset.medium
   /// 3. ResolutionPreset.low
-  ResolutionPreset resolution = ResolutionPreset.high, 
+  ResolutionPreset resolution = ResolutionPreset.high,
 
   ///
   /// Open front camera instead of back camera on launch.
@@ -136,12 +185,11 @@ DarwinCamera({
   int quality = 90;
 
 })
-
 ```
 
 ## Complete example with permission handling.
-See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) directory in the github repository
 
+See the [example](https://github.com/atlanhq/darwin-camera/tree/master/example) directory in the github repository
 
 ## Tests
 
@@ -151,8 +199,7 @@ flutter drive --target=test_driver/app.dart
 ```
 
 ## How to contribute?
+
 See [CONTRIBUTING.md](https://github.com/atlanhq/darwin-camera/blob/master/CONTRIBUTING.md)
 
-
 <img src="https://user-images.githubusercontent.com/408863/66741678-a78ab780-ee93-11e9-8d90-b274af222339.png" align="centre" />
-

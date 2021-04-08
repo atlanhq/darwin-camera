@@ -44,6 +44,22 @@ class DarwinCamera extends StatefulWidget {
   /// Possible values `0 - 100`
   final int quality;
 
+  ///
+  /// Custom Cancel Widget
+  final Widget cancelWidget;
+
+  ///
+  /// Custom Capture Widget
+  final Widget captureWidget;
+
+  ///
+  /// Custom Camera Toggle Widget
+  final Widget cameraToggleWidget;
+
+  ///
+  /// Custom Confirm button Widget
+  final Widget confirmWidget;
+
   DarwinCamera({
     Key key,
     @required this.cameraDescription,
@@ -53,6 +69,10 @@ class DarwinCamera extends StatefulWidget {
     this.disableNativeBackFunctionality = false,
     this.defaultToFrontFacing = false,
     this.quality = 90,
+    this.cancelWidget,
+    this.captureWidget,
+    this.cameraToggleWidget,
+    this.confirmWidget,
   })  : assert(cameraDescription != null),
         assert(filePath != null),
         assert(quality >= 0 && quality <= 100),
@@ -212,18 +232,22 @@ class _DarwinCameraState extends State<DarwinCamera>
       leftFooterButton: CancelButton(
         onTap: null,
         opacity: 0,
+        // child: widget.cancelWidget,
       ),
       centerFooterButton: CaptureButton(
         key: ValueKey("CaptureButton"),
         buttonPosition: captureButtonPosition,
         buttonSize: captureButtonSize,
         onTap: captureImage,
+        child: widget.captureWidget,
       ),
       rightFooterButton: ToggleCameraButton(
         key: ValueKey("CameraToggleButton"),
         onTap: toggleCamera,
         opacity: showCameraToggle ? 1.0 : 0.0,
+        child: widget.cameraToggleWidget,
       ),
+      cancelButton: widget.cancelWidget,
     );
   }
 
@@ -241,12 +265,14 @@ class _DarwinCameraState extends State<DarwinCamera>
         onTap: () {
           setCameraState(CameraState.NOT_CAPTURING);
         },
+        child: widget.cancelWidget,
       ),
       centerFooterButton: ConfirmButton(
         key: ValueKey("ConfirmImageButton"),
         onTap: () {
           DarwinCameraHelper.returnResult(context, file: file);
         },
+        child: widget.confirmWidget,
       ),
       rightFooterButton: CancelButton(
         onTap: null,
